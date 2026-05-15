@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import db from '../db/db.js';
 import { checkAndUpdatePR } from '../db/prService.js';
+import { updateChallengesFromSession } from '../db/challengeService.js';
 
 const useWorkoutStore = create((set, get) => ({
   // ── Today's in-progress session ──
@@ -170,6 +171,9 @@ const useWorkoutStore = create((set, get) => ({
         });
       }
     }
+
+    // Update active challenges with logged exercises
+    await updateChallengesFromSession(logsWithValues);
 
     // Clear the session
     set({

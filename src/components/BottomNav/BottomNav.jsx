@@ -1,11 +1,12 @@
-import { Flame, Clock, Trophy } from 'lucide-react';
+import { Flame, Clock, Trophy, BarChart3 } from 'lucide-react';
 import useWorkoutStore from '../../store/useWorkoutStore.js';
 import './BottomNav.css';
 
 const tabs = [
-  { id: 'today',   label: 'Today',   Icon: Flame },
-  { id: 'history', label: 'History', Icon: Clock },
-  { id: 'prs',     label: 'PRs',     Icon: Trophy },
+  { id: 'today',    label: 'Today',    Icon: Flame },
+  { id: 'history',  label: 'History',  Icon: Clock },
+  { id: 'prs',      label: 'PRs',      Icon: Trophy },
+  { id: 'insights', label: 'Insights', Icon: BarChart3 },
 ];
 
 export default function BottomNav() {

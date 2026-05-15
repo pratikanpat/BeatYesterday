@@ -1,0 +1,103 @@
+/* ═══════════════════════════════════════════════
+   Insights Screen — Phase 3
+   The growth & retention layer
+   ═══════════════════════════════════════════════ */
+
+.insights-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  padding-bottom: calc(var(--nav-height) + var(--space-4));
+}
+
+.insights-screen__header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: var(--space-3) var(--space-3) var(--space-2);
+  background: var(--color-bg);
+}
+
+.insights-screen__title {
+  font-family: var(--font-display);
+  font-size: 32px;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--color-text-primary);
+}
+
+/* ── Content ── */
+.insights-screen__content {
+  flex: 1;
+  padding: 0 var(--space-3);
+}
+
+.insights-screen__section {
+  margin-bottom: var(--space-3);
+}
+
+/* ── Section headers with actions ── */
+.insights-screen__section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.insights-screen__section-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.insights-screen__section-action {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+  transition: border-color var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out);
+}
+
+.insights-screen__section-action:active {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* ── Challenges ── */
+.insights-screen__challenges {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.insights-screen__challenges-empty {
+  text-align: center;
+  padding: var(--space-4) 0;
+}
+
+.insights-screen__challenges-empty-text {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.insights-screen__challenges-start {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--color-accent);
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.insights-screen__challenges-start:active {
+  opacity: 0.7;
+}

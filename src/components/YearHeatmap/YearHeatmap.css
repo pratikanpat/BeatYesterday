@@ -1,0 +1,215 @@
+/* ═══════════════════════════════════════════════
+   Year Heatmap — GitHub-style activity grid
+   Phase 3
+   ═══════════════════════════════════════════════ */
+
+.year-heatmap {
+  background: var(--color-surface-1);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+
+.year-heatmap__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-bottom: var(--space-3);
+}
+
+.year-heatmap__title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.year-heatmap__stats {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+
+.year-heatmap__stat {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  color: var(--color-text-secondary);
+}
+
+.year-heatmap__stat-num {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--color-text-primary);
+  letter-spacing: 0.02em;
+}
+
+.year-heatmap__stat-divider {
+  color: var(--color-text-muted);
+  font-size: var(--text-label);
+}
+
+.year-heatmap__stat--streak .year-heatmap__stat-num {
+  color: var(--color-accent);
+}
+
+/* ── Empty state ── */
+.year-heatmap__empty {
+  padding: var(--space-5) 0;
+  text-align: center;
+}
+
+.year-heatmap__empty-text {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--color-text-muted);
+}
+
+/* ── Tooltip ── */
+.year-heatmap__tooltip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface-3);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-2);
+  animation: fadeIn 150ms var(--ease-out);
+}
+
+.year-heatmap__tooltip-date {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--color-text-primary);
+  letter-spacing: 0.02em;
+}
+
+.year-heatmap__tooltip-detail {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  color: var(--color-text-secondary);
+}
+
+/* ── Grid layout ── */
+.year-heatmap__scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.year-heatmap__scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.year-heatmap__grid-wrap {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.year-heatmap__day-labels {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 18px; /* Offset for month labels */
+  flex-shrink: 0;
+}
+
+.year-heatmap__day-label {
+  height: 12px;
+  font-family: var(--font-body);
+  font-size: 9px;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  width: 14px;
+}
+
+.year-heatmap__grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.year-heatmap__month-labels {
+  display: grid;
+  grid-template-columns: repeat(53, 12px);
+  gap: 2px;
+  height: 14px;
+  margin-bottom: 2px;
+}
+
+.year-heatmap__month-label {
+  font-family: var(--font-body);
+  font-size: 9px;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.year-heatmap__cells {
+  display: flex;
+  gap: 2px;
+}
+
+.year-heatmap__week {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ── Day cells ── */
+.year-heatmap__cell {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  transition: transform var(--duration-instant) var(--ease-out);
+}
+
+.year-heatmap__cell:active:not(:disabled) {
+  transform: scale(1.4);
+}
+
+.year-heatmap__cell--empty {
+  visibility: hidden;
+}
+
+.year-heatmap__cell--level-0 {
+  background: var(--color-surface-3);
+}
+
+.year-heatmap__cell--level-1 {
+  background: rgba(230, 57, 70, 0.15);
+}
+
+.year-heatmap__cell--level-2 {
+  background: rgba(230, 57, 70, 0.35);
+}
+
+.year-heatmap__cell--level-3 {
+  background: rgba(230, 57, 70, 0.6);
+}
+
+.year-heatmap__cell--level-4 {
+  background: var(--color-accent);
+}
+
+/* ── Legend ── */
+.year-heatmap__legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 3px;
+  margin-top: var(--space-2);
+}
+
+.year-heatmap__legend-label {
+  font-family: var(--font-body);
+  font-size: 9px;
+  color: var(--color-text-muted);
+  padding: 0 var(--space-1);
+}
+
+.year-heatmap__legend-cell {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}

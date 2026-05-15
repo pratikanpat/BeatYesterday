@@ -1,0 +1,163 @@
+/* ═══════════════════════════════════════════════
+   Challenge Card — Phase 3
+   ═══════════════════════════════════════════════ */
+
+.challenge-card {
+  background: var(--color-surface-1);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  transition: border-color var(--duration-fast) var(--ease-out);
+}
+
+.challenge-card--done {
+  border-color: rgba(76, 175, 80, 0.3);
+}
+
+.challenge-card__header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.challenge-card__icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.challenge-card__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.challenge-card__name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.challenge-card__desc {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  color: var(--color-text-muted);
+}
+
+.challenge-card__cancel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  transition: color var(--duration-fast) var(--ease-out),
+              background var(--duration-fast) var(--ease-out);
+}
+
+.challenge-card__cancel:active {
+  color: var(--color-accent);
+  background: var(--color-accent-dim);
+}
+
+/* ── Progress bar ── */
+.challenge-card__progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.challenge-card__progress-bar {
+  flex: 1;
+  height: 6px;
+  background: var(--color-surface-3);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.challenge-card__progress-fill {
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: var(--radius-full);
+  transition: width var(--duration-normal) var(--ease-out);
+}
+
+.challenge-card--done .challenge-card__progress-fill {
+  background: var(--color-success);
+}
+
+.challenge-card__progress-text {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+  min-width: 70px;
+  text-align: right;
+}
+
+/* ── Daily status ── */
+.challenge-card__daily {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.challenge-card__daily-target {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.challenge-card__daily-label {
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.challenge-card__daily-value {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--color-text-primary);
+  letter-spacing: 0.02em;
+}
+
+.challenge-card__today-done {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  font-weight: 600;
+  color: var(--color-success);
+}
+
+.challenge-card__today-pending {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  color: var(--color-text-muted);
+}
+
+/* ── Remaining ── */
+.challenge-card__remaining {
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  color: var(--color-text-muted);
+}
+
+.challenge-card__expired {
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  color: var(--color-success);
+  font-weight: 500;
+}

@@ -43,14 +43,17 @@ BeatYesterday/
 │   ├── main.jsx                  # React entry point
 │   ├── App.jsx                   # Root component (tab routing)
 │   ├── db/
-│   │   ├── db.js                 # Dexie database schema (v1 + v2)
+│   ├── db.js                 # Dexie database schema (v1 + v2 + v3)
 │   │   ├── seedExercises.js      # 31 pre-seeded bodyweight exercises
 │   │   ├── prService.js          # PR detection, lookup, sparkline data
 │   │   ├── microWinsService.js   # Micro wins, beat targets, session wins
 │   │   ├── routinesService.js    # Save, load, delete workout routines
-│   │   └── consistencyService.js # Consistency score, muscle group coverage
+│   │   ├── consistencyService.js # Consistency score, muscle group coverage
+│   │   ├── heatmapService.js     # Year heatmap data, weekly recap
+│   │   ├── challengeService.js   # 30-day challenges, presets, auto-tracking
+│   │   └── notificationService.js # Minimal notifications (Sunday recap, PR, challenge)
 │   ├── store/
-│   │   └── useWorkoutStore.js    # Zustand store (session, UI, celebration, checkin)
+│   │   └── useWorkoutStore.js    # Zustand store (session, UI, celebration, checkin, challenges)
 │   ├── styles/
 │   │   ├── tokens.css            # ALL design tokens (single source of truth)
 │   │   ├── reset.css             # Minimal CSS reset
@@ -66,11 +69,18 @@ BeatYesterday/
 │   │   ├── CustomExerciseForm/   # Create custom exercises
 │   │   ├── ConsistencyCard/      # Rolling 30-day consistency score
 │   │   ├── BodyHeatmap/          # Muscle group coverage visualization
-│   │   └── PRShareCard/          # Auto-generated PR share card (canvas)
+│   │   ├── PRShareCard/          # Auto-generated PR share card (canvas)
+│   │   ├── YearHeatmap/          # GitHub-style 365-day activity grid
+│   │   ├── WeeklyRecap/          # Weekly summary with day bars
+│   │   ├── ChallengeCard/        # 30-day challenge progress card
+│   │   ├── ChallengeCreator/     # Start challenge from presets
+│   │   ├── GrindModeSelector/    # Student/Founder/Recovery profiles
+│   │   └── Onboarding/           # Minimal first-launch exercise picker
 │   └── screens/
 │       ├── TodayScreen/          # Core workout logging screen
 │       ├── HistoryScreen/        # Past session list
-│       └── PRsScreen/            # PR cards + consistency + heatmap
+│       ├── PRsScreen/            # PR cards + sparklines (focused)
+│       └── InsightsScreen/       # Year heatmap, recap, challenges, consistency
 ```
 
 ---
@@ -85,6 +95,9 @@ prs:       ++id, exerciseId, value, achievedAt
 routines:  ++id, name, createdAt
 routineExercises: ++id, routineId, exerciseId, order
 checkins:  ++id, sessionId, sleepQuality, energyLevel, timeAvailable, createdAt
+challenges: ++id, name, exerciseId, targetValue, startDate, endDate, isActive, preset
+challengeLogs: ++id, challengeId, date, value
+userProfile: ++id, grindMode, onboardingComplete, favoriteExercises, createdAt
 ```
 
 **Key relationships:**
@@ -123,7 +136,7 @@ checkins:  ++id, sessionId, sleepQuality, energyLevel, timeAvailable, createdAt
 - [x] Auto-dismiss at 3.5s or tap anywhere
 
 ### Bottom Navigation
-- [x] 3 tabs: Today, History, PRs
+- [x] 4 tabs: Today, History, PRs, Insights
 - [x] Accent dot indicator on active tab
 - [x] Lucide icons with weight change on active
 
@@ -209,15 +222,62 @@ All UI decisions are documented in `design_system.md`. Key rules:
 
 ---
 
+## Phase 3 Features Implemented
+
+### GitHub-Style Year Heatmap
+- [x] 365-day activity grid, horizontally scrollable
+- [x] Heat levels 0-4 using accent red scale
+- [x] Tap day → tooltip with exercise count and PRs
+- [x] Auto-scrolls to today on load
+- [x] Stats: active days, total sessions, current streak
+- [x] Less/More legend
+
+### Weekly Recap
+- [x] This week's summary: sessions, exercises, PRs
+- [x] Day-by-day bar chart (Mon-Sun)
+- [x] Comparison to previous week
+- [x] Honest motivational copy based on data
+
+### 30-Day Solo Challenges
+- [x] 4 presets: 50 Pushup Month, Plank Builder, Daily Mobility, Core Consistency
+- [x] Progress bar, days remaining, daily target tracking
+- [x] Auto-tracks from workout sessions
+- [x] ChallengeCreator bottom sheet for starting challenges
+- [x] Cancel/delete challenges
+
+### Grind Mode Profiles
+- [x] Student / Founder / Recovery identity-based profiles
+- [x] Stored in userProfile table
+- [x] GrindModeSelector in InsightsScreen
+
+### Insights Screen (4th Tab)
+- [x] New dedicated tab housing all growth/retention features
+- [x] ConsistencyCard + BodyHeatmap moved from PRsScreen
+- [x] PRsScreen cleaned up — focused on PR cards only
+
+### Minimal Onboarding
+- [x] First-launch exercise picker
+- [x] Pick exercises you actually do (pill selector)
+- [x] Skip option, never shows again
+
+### PWA Service Worker
+- [x] vite-plugin-pwa configured with manifest
+- [x] Offline-first with font caching
+- [x] Installable as PWA
+
+### Notifications (Minimal)
+- [x] Sunday weekly recap
+- [x] PR achievement reminder (next day)
+- [x] Optional evening challenge reminder
+- [x] No spam — localStorage prevents duplicates
+
+---
+
 ## What's NOT Built Yet
 
 | Feature | Phase | Notes |
 |---|---|---|
-| PWA service worker | 1 (remaining) | Vite PWA plugin needs config |
-| GitHub-style year heatmap | 3 | Activity visualization |
-| Weekly recap + notifications | 3 | Sunday push notification |
-| 30-day challenges | 3 | "50 Pushup Month" etc. |
-| Cloud sync (Supabase) | 3 | Multi-device sync |
+| Cloud sync (Supabase) | 4 | Only when users ask for multi-device |
 | Monetization (Pro tier) | 4 | ₹99/month or ₹799/year |
 | AI insights | 4 | "You peak on Tuesdays" |
 
@@ -239,5 +299,6 @@ Opens on `http://localhost:3000`. Use Chrome DevTools mobile emulation (iPhone S
 
 | Date | Change |
 |---|---|
+| 2026-05-15 | Phase 3 complete — Insights tab, year heatmap, challenges, grind modes, PWA, onboarding |
 | 2026-05-15 | Phase 2 complete — all features wired into screens |
 | 2026-05-15 | Initial Phase 1 build — all 3 screens, DB, store, PR celebration, exercise seed |

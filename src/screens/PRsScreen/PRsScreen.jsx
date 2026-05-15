@@ -3,8 +3,6 @@ import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
 import { Share2 } from 'lucide-react';
 import db from '../../db/db.js';
 import { getRecentLogs } from '../../db/prService.js';
-import ConsistencyCard from '../../components/ConsistencyCard/ConsistencyCard.jsx';
-import BodyHeatmap from '../../components/BodyHeatmap/BodyHeatmap.jsx';
 import PRShareCard from '../../components/PRShareCard/PRShareCard.jsx';
 import './PRsScreen.css';
 
@@ -20,6 +18,7 @@ const FILTER_TABS = [
  * Design System §8, Screen 3
  *
  * Per-exercise best ever with sparkline charts.
+ * Clean and focused — insights moved to InsightsScreen (Phase 3).
  */
 export default function PRsScreen() {
   const [prCards, setPrCards] = useState([]);
@@ -39,16 +38,13 @@ export default function PRsScreen() {
       exerciseMap[ex.id] = ex;
     }
 
-    // Build PR card data
     const cards = await Promise.all(
       prs.map(async (pr) => {
         const exercise = exerciseMap[pr.exerciseId];
         if (!exercise) return null;
 
-        // Get recent logs for sparkline
         const recentLogs = await getRecentLogs(pr.exerciseId, 14);
 
-        // Get last logged value (for comparison)
         const allLogs = await db.logs
           .where('exerciseId')
           .equals(pr.exerciseId)
@@ -95,11 +91,6 @@ export default function PRsScreen() {
         <h1 className="prs-screen__title">MY PRs</h1>
       </header>
 
-      {/* Consistency Score */}
-      <div className="prs-screen__insights">
-        <ConsistencyCard />
-      </div>
-
       {/* Filter tabs */}
       <div className="prs-screen__filters">
         {FILTER_TABS.map(tab => (
@@ -132,15 +123,12 @@ export default function PRsScreen() {
                 className={`pr-card ${isExpanded ? 'pr-card--expanded' : ''}`}
                 onClick={() => setExpandedId(isExpanded ? null : card.id)}
               >
-                {/* Exercise name */}
                 <span className="pr-card__name">{card.exerciseName.toUpperCase()}</span>
 
-                {/* Big number */}
                 <span className="pr-card__number">
                   {formatValue(card.bestValue, card.inputType)}
                 </span>
 
-                {/* Unit + last comparison */}
                 <div className="pr-card__meta">
                   <span className="pr-card__unit">
                     {card.inputType === 'time' ? 'SEC' : 'REPS'}
@@ -170,7 +158,6 @@ export default function PRsScreen() {
                   </button>
                 </div>
 
-                {/* Sparkline */}
                 {card.sparklineData.length > 1 && (
                   <div className={`pr-card__sparkline ${isExpanded ? 'pr-card__sparkline--expanded' : ''}`}>
                     <ResponsiveContainer width="100%" height={isExpanded ? 120 : 40}>
@@ -192,11 +179,6 @@ export default function PRsScreen() {
             );
           })}
         </div>
-      </div>
-
-      {/* Body Heatmap */}
-      <div className="prs-screen__insights">
-        <BodyHeatmap />
       </div>
 
       {/* PR Share Card overlay */}
