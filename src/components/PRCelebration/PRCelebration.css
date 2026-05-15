@@ -101,3 +101,30 @@
   border-color: var(--color-text-secondary);
   color: var(--color-text-primary);
 }
+
+/* ── Actions row ── */
+.pr-celebration__actions {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.pr-celebration__share-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out);
+}
+
+.pr-celebration__share-btn:active {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}

@@ -15,9 +15,11 @@ export default function ExerciseRow({
   onValueChange,
   onRemove,
   isPR,
+  beatTarget,
 }) {
   const inputRef = useRef(null);
   const unit = inputType === 'time' ? 'sec' : 'reps';
+  const showBeatTarget = beatTarget && (!value || value === '' || Number(value) <= 0);
 
   // Calculate delta from previous best
   const numValue = Number(value);
@@ -45,6 +47,11 @@ export default function ExerciseRow({
             </span>
           )}
         </span>
+        {showBeatTarget && (
+          <span className="exercise-row__beat-target">
+            Target: {beatTarget} {unit}
+          </span>
+        )}
       </div>
       <div className="exercise-row__right">
         <input

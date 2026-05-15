@@ -43,24 +43,34 @@ BeatYesterday/
 │   ├── main.jsx                  # React entry point
 │   ├── App.jsx                   # Root component (tab routing)
 │   ├── db/
-│   │   ├── db.js                 # Dexie database schema
+│   │   ├── db.js                 # Dexie database schema (v1 + v2)
 │   │   ├── seedExercises.js      # 31 pre-seeded bodyweight exercises
-│   │   └── prService.js          # PR detection, lookup, sparkline data
+│   │   ├── prService.js          # PR detection, lookup, sparkline data
+│   │   ├── microWinsService.js   # Micro wins, beat targets, session wins
+│   │   ├── routinesService.js    # Save, load, delete workout routines
+│   │   └── consistencyService.js # Consistency score, muscle group coverage
 │   ├── store/
-│   │   └── useWorkoutStore.js    # Zustand store (session, UI, celebration)
+│   │   └── useWorkoutStore.js    # Zustand store (session, UI, celebration, checkin)
 │   ├── styles/
 │   │   ├── tokens.css            # ALL design tokens (single source of truth)
 │   │   ├── reset.css             # Minimal CSS reset
 │   │   └── animations.css        # @keyframes (fade, slide, spring, glow)
 │   ├── components/
 │   │   ├── BottomNav/            # 3-tab navigation (Today, History, PRs)
-│   │   ├── ExerciseRow/          # Single exercise entry row
-│   │   ├── BottomSheet/          # Add Exercise bottom sheet
-│   │   └── PRCelebration/        # Full-screen PR celebration overlay
+│   │   ├── ExerciseRow/          # Single exercise entry row + beat target
+│   │   ├── BottomSheet/          # Add Exercise bottom sheet + custom exercise
+│   │   ├── PRCelebration/        # Full-screen PR celebration + share
+│   │   ├── MicroWinBanner/       # Per-exercise micro win feedback
+│   │   ├── CheckIn/              # Pre-session energy/sleep check-in
+│   │   ├── RoutinePicker/        # Load saved workout routines
+│   │   ├── CustomExerciseForm/   # Create custom exercises
+│   │   ├── ConsistencyCard/      # Rolling 30-day consistency score
+│   │   ├── BodyHeatmap/          # Muscle group coverage visualization
+│   │   └── PRShareCard/          # Auto-generated PR share card (canvas)
 │   └── screens/
 │       ├── TodayScreen/          # Core workout logging screen
 │       ├── HistoryScreen/        # Past session list
-│       └── PRsScreen/            # Per-exercise PR cards + sparklines
+│       └── PRsScreen/            # PR cards + consistency + heatmap
 ```
 
 ---
@@ -69,9 +79,12 @@ BeatYesterday/
 
 ```
 exercises: ++id, name, category, muscleGroup, inputType, isCustom
-sessions:  ++id, date, durationMin
+sessions:  ++id, date, durationMin, checkinId
 logs:      ++id, sessionId, exerciseId, reps, durationSec, sets, timestamp
 prs:       ++id, exerciseId, value, achievedAt
+routines:  ++id, name, createdAt
+routineExercises: ++id, routineId, exerciseId, order
+checkins:  ++id, sessionId, sleepQuality, energyLevel, timeAvailable, createdAt
 ```
 
 **Key relationships:**
@@ -116,6 +129,51 @@ prs:       ++id, exerciseId, value, achievedAt
 
 ---
 
+## Phase 2 Features Implemented
+
+### Micro Wins Engine
+- [x] Per-exercise micro wins: "+2 from last time", "Best in 14 days", comeback detection
+- [x] Session-level wins: weekly count, multi-session, milestone tracking
+- [x] MicroWinBanner component rendered below exercise rows in TodayScreen
+
+### "What Should I Beat Today?" Targets
+- [x] Smart beat targets (+1-3 reps / +5 sec based on last value)
+- [x] Displayed in ExerciseRow before user enters a value
+
+### Custom Exercises
+- [x] CustomExerciseForm with name, muscle group, category, tracking type, difficulty
+- [x] Accessible via "CREATE YOUR OWN" button in Add Exercise bottom sheet
+- [x] Saved with `isCustom: true` flag in exercises table
+
+### Routine Templates
+- [x] Save current session as named routine
+- [x] Load routine to populate session with exercises
+- [x] Delete routines
+- [x] RoutinePicker + save modal integrated in TodayScreen
+
+### Energy/Sleep Check-in
+- [x] 3-step flow: sleep quality, energy level, time available
+- [x] Skip option
+- [x] Saved to checkins table linked to session
+
+### Consistency Score
+- [x] Rolling 30-day percentage with honest messaging
+- [x] Mini heatmap showing active/inactive days
+- [x] Total all-time session count
+- [x] ConsistencyCard integrated in PRsScreen
+
+### Body Area Heatmap
+- [x] Muscle group coverage visualization (7D/14D/30D toggle)
+- [x] Heat levels 0-4 based on exercise count per muscle group
+- [x] Category summary counts
+- [x] BodyHeatmap integrated in PRsScreen
+
+### PR Share Cards
+- [x] Canvas-generated Instagram story cards (1080×1920)
+- [x] Web Share API + download fallback
+- [x] Share button on PR cards in PRsScreen
+- [x] Share button on PR celebration overlay
+
 ## Core Workflows
 
 ### Logging a Workout
@@ -156,13 +214,6 @@ All UI decisions are documented in `design_system.md`. Key rules:
 | Feature | Phase | Notes |
 |---|---|---|
 | PWA service worker | 1 (remaining) | Vite PWA plugin needs config |
-| Custom exercises | 2 | User-created exercises |
-| Routine templates | 2 | Save + load workout presets |
-| Energy/sleep check-in | 2 | Pre-session 3-tap check |
-| Micro Wins engine | 2 | "+2 pushups from last time" smart banners |
-| Consistency Score | 2 | Rolling 30-day % |
-| Body heatmap | 2 | Visual muscle group coverage |
-| PR Share Cards | 2 | Auto-generated for Instagram/WhatsApp |
 | GitHub-style year heatmap | 3 | Activity visualization |
 | Weekly recap + notifications | 3 | Sunday push notification |
 | 30-day challenges | 3 | "50 Pushup Month" etc. |
@@ -188,4 +239,5 @@ Opens on `http://localhost:3000`. Use Chrome DevTools mobile emulation (iPhone S
 
 | Date | Change |
 |---|---|
+| 2026-05-15 | Phase 2 complete — all features wired into screens |
 | 2026-05-15 | Initial Phase 1 build — all 3 screens, DB, store, PR celebration, exercise seed |

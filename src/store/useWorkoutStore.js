@@ -6,15 +6,22 @@ const useWorkoutStore = create((set, get) => ({
   // ── Today's in-progress session ──
   activeSession: {
     logs: [],
-    // Each log: { exerciseId, exerciseName, inputType, value, category, muscleGroup }
+    // Each log: { exerciseId, exerciseName, inputType, value, category, muscleGroup, microWin }
   },
 
   // ── UI state ──
-  celebrationData: null, // { exerciseId, exerciseName, newValue, previousBest, delta }
+  celebrationData: null, // { exerciseId, exerciseName, newValue, previousBest, delta, inputType }
   activeTab: 'today', // 'today' | 'history' | 'prs'
+  showCheckin: false,  // Phase 2: pre-session check-in
+  checkinData: null,   // { sleepQuality, energyLevel, timeAvailable }
 
   // ── Navigation ──
   setActiveTab: (tab) => set({ activeTab: tab }),
+
+  // ── Check-in (Phase 2) ──
+  setShowCheckin: (show) => set({ showCheckin: show }),
+  setCheckinData: (data) => set({ checkinData: data, showCheckin: false }),
+  skipCheckin: () => set({ showCheckin: false }),
 
   // ── Session management ──
   addExerciseToSession: (exercise) => {
@@ -34,8 +41,36 @@ const useWorkoutStore = create((set, get) => ({
             value: '',
             category: exercise.category,
             muscleGroup: exercise.muscleGroup,
+            microWin: null,
           },
         ],
+      },
+    });
+  },
+
+  /**
+   * Load a routine (multiple exercises at once).
+   */
+  loadRoutine: (exercises) => {
+    const { activeSession } = get();
+    const existingIds = new Set(activeSession.logs.map(l => l.exerciseId));
+
+    const newLogs = exercises
+      .filter(ex => !existingIds.has(ex.id))
+      .map(ex => ({
+        exerciseId: ex.id,
+        exerciseName: ex.name,
+        inputType: ex.inputType,
+        value: '',
+        category: ex.category,
+        muscleGroup: ex.muscleGroup,
+        microWin: null,
+      }));
+
+    set({
+      activeSession: {
+        ...activeSession,
+        logs: [...activeSession.logs, ...newLogs],
       },
     });
   },
@@ -48,6 +83,20 @@ const useWorkoutStore = create((set, get) => ({
         logs: activeSession.logs.map(log =>
           log.exerciseId === exerciseId
             ? { ...log, value }
+            : log
+        ),
+      },
+    });
+  },
+
+  setMicroWin: (exerciseId, microWin) => {
+    const { activeSession } = get();
+    set({
+      activeSession: {
+        ...activeSession,
+        logs: activeSession.logs.map(log =>
+          log.exerciseId === exerciseId
+            ? { ...log, microWin }
             : log
         ),
       },
@@ -69,7 +118,7 @@ const useWorkoutStore = create((set, get) => ({
    * Returns array of exerciseIds that achieved new PRs.
    */
   saveSession: async () => {
-    const { activeSession } = get();
+    const { activeSession, checkinData } = get();
     const logsWithValues = activeSession.logs.filter(
       l => l.value !== '' && l.value !== null && l.value !== undefined && Number(l.value) > 0
     );
@@ -83,6 +132,17 @@ const useWorkoutStore = create((set, get) => ({
       date: today,
       durationMin: null,
     });
+
+    // Save check-in data if provided
+    if (checkinData) {
+      await db.checkins.add({
+        sessionId,
+        sleepQuality: checkinData.sleepQuality,
+        energyLevel: checkinData.energyLevel,
+        timeAvailable: checkinData.timeAvailable,
+        createdAt: new Date(),
+      });
+    }
 
     // Save each exercise log
     const prResults = [];
@@ -114,6 +174,7 @@ const useWorkoutStore = create((set, get) => ({
     // Clear the session
     set({
       activeSession: { logs: [] },
+      checkinData: null,
     });
 
     return { prs: prResults };

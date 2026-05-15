@@ -1,0 +1,191 @@
+/* ═══════════════════════════════════════════════
+   Body Heatmap — Muscle Group Coverage
+   Phase 2
+   ═══════════════════════════════════════════════ */
+
+.body-heatmap {
+  background: var(--color-surface-1);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.body-heatmap__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.body-heatmap__title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+}
+
+.body-heatmap__period-toggle {
+  display: flex;
+  gap: var(--space-1);
+  background: var(--color-surface-3);
+  border-radius: var(--radius-full);
+  padding: 2px;
+}
+
+.body-heatmap__period-btn {
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.body-heatmap__period-btn--active {
+  background: var(--color-surface-1);
+  color: var(--color-text-primary);
+}
+
+/* ── Body regions ── */
+.body-heatmap__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.body-heatmap__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.body-heatmap__section-label {
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
+}
+
+.body-heatmap__muscles {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.body-heatmap__muscle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 64px;
+  height: 56px;
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
+  flex: 1;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.body-heatmap__muscle-name {
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin-bottom: 2px;
+}
+
+.body-heatmap__muscle-count {
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: 0.02em;
+}
+
+/* Heat levels */
+.body-heatmap__muscle--level-0 {
+  background: var(--color-surface-3);
+  .body-heatmap__muscle-count { color: var(--color-text-muted); }
+}
+
+.body-heatmap__muscle--level-1 {
+  background: rgba(230, 57, 70, 0.08);
+  .body-heatmap__muscle-count { color: rgba(230, 57, 70, 0.5); }
+}
+
+.body-heatmap__muscle--level-2 {
+  background: rgba(230, 57, 70, 0.15);
+  .body-heatmap__muscle-count { color: rgba(230, 57, 70, 0.7); }
+}
+
+.body-heatmap__muscle--level-3 {
+  background: rgba(230, 57, 70, 0.25);
+  .body-heatmap__muscle-count { color: var(--color-accent); }
+}
+
+.body-heatmap__muscle--level-4 {
+  background: rgba(230, 57, 70, 0.35);
+  .body-heatmap__muscle-count { color: var(--color-accent-hover); }
+}
+
+/* ── Legend ── */
+.body-heatmap__legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.body-heatmap__legend-label {
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  color: var(--color-text-muted);
+}
+
+.body-heatmap__legend-scale {
+  display: flex;
+  gap: 3px;
+}
+
+.body-heatmap__legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.body-heatmap__legend-dot--level-0 { background: var(--color-surface-3); }
+.body-heatmap__legend-dot--level-1 { background: rgba(230, 57, 70, 0.15); }
+.body-heatmap__legend-dot--level-2 { background: rgba(230, 57, 70, 0.25); }
+.body-heatmap__legend-dot--level-3 { background: rgba(230, 57, 70, 0.35); }
+.body-heatmap__legend-dot--level-4 { background: rgba(230, 57, 70, 0.5); }
+
+/* ── Category summary ── */
+.body-heatmap__summary {
+  display: flex;
+  justify-content: space-around;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.body-heatmap__summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.body-heatmap__summary-count {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--color-text-primary);
+}
+
+.body-heatmap__summary-label {
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}

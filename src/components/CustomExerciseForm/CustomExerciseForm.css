@@ -1,0 +1,146 @@
+/* ═══════════════════════════════════════════════
+   Custom Exercise Form
+   Phase 2
+   ═══════════════════════════════════════════════ */
+
+.custom-exercise-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  animation: fadeIn 200ms var(--ease-out);
+}
+
+.custom-exercise-form {
+  width: 100%;
+  max-height: 85vh;
+  background: var(--color-surface-2);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  padding: 0 var(--space-3) var(--space-4);
+  animation: slideUp var(--duration-normal) var(--ease-out);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.custom-exercise-form__handle {
+  width: 32px;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--color-border-bright);
+  margin: var(--space-2) auto;
+}
+
+.custom-exercise-form__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) 0 var(--space-3);
+}
+
+.custom-exercise-form__title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+}
+
+.custom-exercise-form__close {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  color: var(--color-text-secondary);
+}
+
+/* ── Fields ── */
+.custom-exercise-form__field {
+  margin-bottom: var(--space-4);
+}
+
+.custom-exercise-form__label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-2);
+}
+
+.custom-exercise-form__input {
+  width: 100%;
+  height: 48px;
+  padding: 0 var(--space-3);
+  background: var(--color-surface-3);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  font-size: var(--text-body);
+  color: var(--color-text-primary);
+  transition: border-color var(--duration-fast) var(--ease-out);
+}
+
+.custom-exercise-form__input:focus {
+  border-color: var(--color-accent);
+}
+
+.custom-exercise-form__input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* ── Pill selector ── */
+.custom-exercise-form__pills {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.custom-exercise-form__pill {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: var(--color-surface-3);
+  border: 1px solid var(--color-border);
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.custom-exercise-form__pill--active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-text-primary);
+}
+
+/* ── Error ── */
+.custom-exercise-form__error {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  color: var(--color-accent);
+  margin-bottom: var(--space-3);
+}
+
+/* ── Submit ── */
+.custom-exercise-form__submit {
+  width: 100%;
+  height: 52px;
+  background: var(--color-accent);
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  color: var(--color-text-primary);
+  transition: transform var(--duration-instant) var(--ease-out),
+              background var(--duration-fast) var(--ease-out);
+  margin-top: var(--space-2);
+}
+
+.custom-exercise-form__submit:active {
+  transform: scale(0.96);
+  background: var(--color-accent-hover);
+}

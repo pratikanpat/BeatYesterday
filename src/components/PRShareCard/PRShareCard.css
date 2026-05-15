@@ -1,0 +1,108 @@
+/* ═══════════════════════════════════════════════
+   PR Share Card
+   Phase 2
+   ═══════════════════════════════════════════════ */
+
+.pr-share-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  animation: fadeIn 200ms var(--ease-out);
+}
+
+.pr-share-card {
+  width: 100%;
+  max-width: 360px;
+  background: var(--color-surface-2);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  animation: fadeInUp 300ms var(--ease-out);
+}
+
+.pr-share-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3);
+}
+
+.pr-share-card__title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+}
+
+.pr-share-card__close {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  color: var(--color-text-secondary);
+}
+
+/* ── Preview ── */
+.pr-share-card__preview {
+  padding: 0 var(--space-3);
+  display: flex;
+  justify-content: center;
+}
+
+.pr-share-card__canvas {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+}
+
+/* ── Actions ── */
+.pr-share-card__actions {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-3);
+}
+
+.pr-share-card__action-btn {
+  flex: 1;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  transition: transform var(--duration-instant) var(--ease-out),
+              background var(--duration-fast) var(--ease-out);
+}
+
+.pr-share-card__action-btn:active {
+  transform: scale(0.96);
+}
+
+.pr-share-card__action-btn--share {
+  background: var(--color-accent);
+  color: var(--color-text-primary);
+}
+
+.pr-share-card__action-btn--share:active {
+  background: var(--color-accent-hover);
+}
+
+.pr-share-card__action-btn--download {
+  background: var(--color-surface-3);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+
+.pr-share-card__action-btn--download:active {
+  background: var(--color-surface-1);
+}

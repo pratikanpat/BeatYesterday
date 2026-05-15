@@ -169,3 +169,27 @@
   width: 100%;
   overflow: hidden;
 }
+
+/* ── Insights section ── */
+.prs-screen__insights {
+  padding: 0 var(--space-3) var(--space-3);
+}
+
+/* ── Share button on PR cards ── */
+.pr-card__share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  color: var(--color-text-muted);
+  margin-left: auto;
+  transition: color var(--duration-fast) var(--ease-out),
+              background var(--duration-fast) var(--ease-out);
+}
+
+.pr-card__share-btn:active {
+  color: var(--color-accent);
+  background: var(--color-accent-dim);
+}

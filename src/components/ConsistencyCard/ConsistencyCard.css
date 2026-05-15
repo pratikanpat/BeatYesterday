@@ -1,0 +1,86 @@
+/* ═══════════════════════════════════════════════
+   Consistency Card
+   Phase 2
+   ═══════════════════════════════════════════════ */
+
+.consistency-card {
+  background: var(--color-surface-1);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.consistency-card__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.consistency-card__title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+}
+
+.consistency-card__message {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+.consistency-card__score {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+  margin-bottom: var(--space-1);
+}
+
+.consistency-card__number {
+  font-family: var(--font-display);
+  font-size: 56px;
+  color: var(--color-text-primary);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.consistency-card__percent {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--color-text-muted);
+}
+
+.consistency-card__sub {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+}
+
+/* ── Mini heatmap ── */
+.consistency-card__heatmap {
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  gap: 3px;
+  margin-bottom: var(--space-3);
+}
+
+.consistency-card__day {
+  aspect-ratio: 1;
+  border-radius: 2px;
+  background: var(--color-surface-3);
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.consistency-card__day--active {
+  background: var(--color-accent);
+}
+
+.consistency-card__total {
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  color: var(--color-text-muted);
+  text-align: center;
+}

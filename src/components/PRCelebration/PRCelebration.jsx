@@ -1,6 +1,8 @@
-import { useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Share2 } from 'lucide-react';
 import useWorkoutStore from '../../store/useWorkoutStore.js';
+import PRShareCard from '../PRShareCard/PRShareCard.jsx';
 import './PRCelebration.css';
 
 /**
@@ -13,17 +15,23 @@ import './PRCelebration.css';
 export default function PRCelebration() {
   const celebrationData = useWorkoutStore(s => s.celebrationData);
   const clearCelebration = useWorkoutStore(s => s.clearCelebration);
+  const [showShare, setShowShare] = useState(false);
 
   const dismiss = useCallback(() => {
     clearCelebration();
   }, [clearCelebration]);
 
-  // Auto-dismiss after 3.5s
+  // Auto-dismiss after 3.5s (paused when share card is open)
   useEffect(() => {
-    if (!celebrationData) return;
+    if (!celebrationData || showShare) return;
     const timer = setTimeout(dismiss, 3500);
     return () => clearTimeout(timer);
-  }, [celebrationData, dismiss]);
+  }, [celebrationData, dismiss, showShare]);
+
+  // Reset share state when celebration changes
+  useEffect(() => {
+    if (!celebrationData) setShowShare(false);
+  }, [celebrationData]);
 
   const formatValue = (value, inputType) => {
     if (inputType === 'time') {
@@ -120,16 +128,43 @@ export default function PRCelebration() {
               </motion.p>
             )}
 
-            {/* Dismiss */}
-            <motion.button
-              className="pr-celebration__dismiss"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.7, duration: 0.2 }}
-              onClick={dismiss}
-            >
-              KEEP GOING →
-            </motion.button>
+            {/* Actions */}
+            <div className="pr-celebration__actions">
+              <motion.button
+                className="pr-celebration__share-btn"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.7, duration: 0.2 }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowShare(true);
+                }}
+              >
+                <Share2 size={16} />
+                SHARE
+              </motion.button>
+              <motion.button
+                className="pr-celebration__dismiss"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.7, duration: 0.2 }}
+                onClick={dismiss}
+              >
+                KEEP GOING →
+              </motion.button>
+            </div>
+
+            {/* PR Share Card */}
+            {showShare && celebrationData && (
+              <PRShareCard
+                isOpen={true}
+                onClose={() => setShowShare(false)}
+                exerciseName={celebrationData.exerciseName}
+                value={celebrationData.newValue}
+                inputType={celebrationData.inputType}
+                previousBest={celebrationData.previousBest}
+              />
+            )}
           </div>
         </motion.div>
       )}

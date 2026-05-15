@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
-import { X, Search } from 'lucide-react';
+import { X, Search, PlusCircle } from 'lucide-react';
 import db from '../../db/db.js';
+import CustomExerciseForm from '../CustomExerciseForm/CustomExerciseForm.jsx';
 import './BottomSheet.css';
 
 const FILTER_TABS = [
@@ -18,6 +19,7 @@ export default function BottomSheet({ isOpen, onClose, onSelectExercise, addedEx
   const [exercises, setExercises] = useState([]);
   const [activeFilter, setActiveFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [showCustomForm, setShowCustomForm] = useState(false);
   const sheetRef = useRef(null);
 
   useEffect(() => {
@@ -25,8 +27,15 @@ export default function BottomSheet({ isOpen, onClose, onSelectExercise, addedEx
       db.exercises.toArray().then(setExercises);
       setSearchQuery('');
       setActiveFilter('all');
+      setShowCustomForm(false);
     }
   }, [isOpen]);
+
+  const handleCustomCreated = (newExercise) => {
+    setExercises(prev => [...prev, newExercise]);
+    onSelectExercise(newExercise);
+    onClose();
+  };
 
   const filtered = exercises.filter(ex => {
     const matchesCategory = activeFilter === 'all' || ex.category === activeFilter;
@@ -113,7 +122,24 @@ export default function BottomSheet({ isOpen, onClose, onSelectExercise, addedEx
               No exercises found.
             </div>
           )}
+
+          {/* Create Custom Exercise */}
+          <button
+            className="bottom-sheet__create-custom"
+            onClick={() => setShowCustomForm(true)}
+            id="create-custom-exercise-btn"
+          >
+            <PlusCircle size={18} />
+            CREATE YOUR OWN
+          </button>
         </div>
+
+        {/* Custom Exercise Form overlay */}
+        <CustomExerciseForm
+          isOpen={showCustomForm}
+          onClose={() => setShowCustomForm(false)}
+          onCreated={handleCustomCreated}
+        />
       </div>
     </div>
   );

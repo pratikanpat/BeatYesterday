@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
+import { Share2 } from 'lucide-react';
 import db from '../../db/db.js';
 import { getRecentLogs } from '../../db/prService.js';
+import ConsistencyCard from '../../components/ConsistencyCard/ConsistencyCard.jsx';
+import BodyHeatmap from '../../components/BodyHeatmap/BodyHeatmap.jsx';
+import PRShareCard from '../../components/PRShareCard/PRShareCard.jsx';
 import './PRsScreen.css';
 
 const FILTER_TABS = [
@@ -21,6 +25,7 @@ export default function PRsScreen() {
   const [prCards, setPrCards] = useState([]);
   const [activeFilter, setActiveFilter] = useState('all');
   const [expandedId, setExpandedId] = useState(null);
+  const [shareData, setShareData] = useState(null);
 
   useEffect(() => {
     loadPRs();
@@ -90,6 +95,11 @@ export default function PRsScreen() {
         <h1 className="prs-screen__title">MY PRs</h1>
       </header>
 
+      {/* Consistency Score */}
+      <div className="prs-screen__insights">
+        <ConsistencyCard />
+      </div>
+
       {/* Filter tabs */}
       <div className="prs-screen__filters">
         {FILTER_TABS.map(tab => (
@@ -143,6 +153,21 @@ export default function PRsScreen() {
                       )}
                     </span>
                   )}
+                  <button
+                    className="pr-card__share-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShareData({
+                        exerciseName: card.exerciseName,
+                        value: card.bestValue,
+                        inputType: card.inputType,
+                        previousBest: card.lastValue !== card.bestValue ? card.lastValue : null,
+                      });
+                    }}
+                    aria-label={`Share ${card.exerciseName} PR`}
+                  >
+                    <Share2 size={14} />
+                  </button>
                 </div>
 
                 {/* Sparkline */}
@@ -168,6 +193,23 @@ export default function PRsScreen() {
           })}
         </div>
       </div>
+
+      {/* Body Heatmap */}
+      <div className="prs-screen__insights">
+        <BodyHeatmap />
+      </div>
+
+      {/* PR Share Card overlay */}
+      {shareData && (
+        <PRShareCard
+          isOpen={true}
+          onClose={() => setShareData(null)}
+          exerciseName={shareData.exerciseName}
+          value={shareData.value}
+          inputType={shareData.inputType}
+          previousBest={shareData.previousBest}
+        />
+      )}
     </div>
   );
 }
