@@ -1,0 +1,77 @@
+/* ═══════════════════════════════════════════════
+   BeatYesterday — Keyframe Animations
+   ═══════════════════════════════════════════════ */
+
+/* Card entrance — subtle upward fade */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* PR badge spring entrance */
+@keyframes prBadgePop {
+  0%   { transform: scale(0); opacity: 0; }
+  60%  { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Button press feedback */
+@keyframes buttonPress {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(0.96); }
+  100% { transform: scale(1); }
+}
+
+/* PR celebration flash */
+@keyframes celebrationFlash {
+  0%   { opacity: 0; }
+  30%  { opacity: 0.05; }
+  100% { opacity: 0; }
+}
+
+/* PR number scale-in */
+@keyframes heroNumberIn {
+  0%   { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Accent glow pulse (PR celebration) */
+@keyframes glowPulse {
+  0%   { transform: scale(1); opacity: 0.08; }
+  50%  { transform: scale(1.1); opacity: 0.12; }
+  100% { transform: scale(1); opacity: 0.08; }
+}
+
+/* Slide up (bottom sheet / screen navigation) */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Fade in */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Fade out */
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* Subtle shimmer for empty states */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}

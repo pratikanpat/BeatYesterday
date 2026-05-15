@@ -1,0 +1,171 @@
+/* ═══════════════════════════════════════════════
+   PRs Screen
+   Design System §8, Screen 3
+   ═══════════════════════════════════════════════ */
+
+.prs-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  padding-bottom: calc(var(--nav-height) + var(--space-4));
+}
+
+.prs-screen__header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: var(--space-3) var(--space-3) var(--space-2);
+  background: var(--color-bg);
+}
+
+.prs-screen__title {
+  font-family: var(--font-display);
+  font-size: 32px;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--color-text-primary);
+}
+
+/* ── Filter tabs ── */
+.prs-screen__filters {
+  display: flex;
+  gap: var(--space-2);
+  padding: 0 var(--space-3) var(--space-3);
+  position: sticky;
+  top: 48px;
+  z-index: 40;
+  background: var(--color-bg);
+}
+
+.prs-screen__filter-tab {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+  background: var(--color-surface-1);
+  border: 1px solid transparent;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.prs-screen__filter-tab--active {
+  background: var(--color-accent);
+  color: var(--color-text-primary);
+}
+
+/* ── Content ── */
+.prs-screen__content {
+  flex: 1;
+  padding: 0 var(--space-3);
+}
+
+.prs-screen__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+}
+
+/* 2 columns on wider phones */
+@media (min-width: 420px) {
+  .prs-screen__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ── Empty state ── */
+.prs-screen__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-7) 0;
+  text-align: center;
+}
+
+.prs-screen__empty-text {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.02em;
+  margin-bottom: var(--space-2);
+}
+
+.prs-screen__empty-sub {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--color-text-muted);
+}
+
+/* ═══════════════════════════════════════════════
+   PR Card — The unit of progress
+   Design System §7.5
+   ═══════════════════════════════════════════════ */
+
+.pr-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface-1);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  text-align: left;
+  transition: background var(--duration-fast) var(--ease-out);
+  width: 100%;
+}
+
+.pr-card:active {
+  background: var(--color-surface-2);
+}
+
+.pr-card--expanded {
+  grid-column: 1 / -1;
+}
+
+.pr-card__name {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-1);
+}
+
+.pr-card__number {
+  font-family: var(--font-display);
+  font-size: var(--text-stat);
+  color: var(--color-text-primary);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.pr-card__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.pr-card__unit {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.04em;
+}
+
+.pr-card__last {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  color: var(--color-text-muted);
+}
+
+.pr-card__check {
+  color: var(--color-success);
+}
+
+.pr-card__sparkline {
+  margin-top: var(--space-2);
+  width: 100%;
+  overflow: hidden;
+}

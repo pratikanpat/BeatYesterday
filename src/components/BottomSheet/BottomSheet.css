@@ -1,0 +1,189 @@
+/* ═══════════════════════════════════════════════
+   Bottom Sheet — Add Exercise
+   Design System §7.8
+   ═══════════════════════════════════════════════ */
+
+.bottom-sheet-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  animation: fadeIn 200ms var(--ease-out);
+}
+
+.bottom-sheet {
+  width: 100%;
+  max-height: 80vh;
+  background: var(--color-surface-2);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp var(--duration-normal) var(--ease-out);
+  overflow: hidden;
+}
+
+.bottom-sheet__handle {
+  width: 32px;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--color-border-bright);
+  margin: var(--space-2) auto;
+  flex-shrink: 0;
+}
+
+.bottom-sheet__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-3) var(--space-3);
+  flex-shrink: 0;
+}
+
+.bottom-sheet__title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+}
+
+.bottom-sheet__close {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  color: var(--color-text-secondary);
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.bottom-sheet__close:active {
+  background: var(--color-surface-3);
+}
+
+/* ── Search ── */
+.bottom-sheet__search {
+  position: relative;
+  padding: 0 var(--space-3) var(--space-2);
+  flex-shrink: 0;
+}
+
+.bottom-sheet__search-icon {
+  position: absolute;
+  left: calc(var(--space-3) + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.bottom-sheet__search-input {
+  width: 100%;
+  height: 44px;
+  padding: 0 var(--space-3) 0 40px;
+  background: var(--color-surface-3);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  font-size: var(--text-body);
+  color: var(--color-text-primary);
+  transition: border-color var(--duration-fast) var(--ease-out);
+}
+
+.bottom-sheet__search-input:focus {
+  border-color: var(--color-border-bright);
+}
+
+.bottom-sheet__search-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* ── Filter Tabs ── */
+.bottom-sheet__filters {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  flex-shrink: 0;
+  overflow-x: auto;
+}
+
+.bottom-sheet__filter-tab {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+  background: var(--color-surface-3);
+  border: 1px solid transparent;
+  white-space: nowrap;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.bottom-sheet__filter-tab--active {
+  background: var(--color-accent);
+  color: var(--color-text-primary);
+}
+
+/* ── Exercise List ── */
+.bottom-sheet__list {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-2) var(--space-3) var(--space-4);
+  -webkit-overflow-scrolling: touch;
+}
+
+.bottom-sheet__exercise {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 56px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-sm);
+  text-align: left;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.bottom-sheet__exercise:active:not(:disabled) {
+  background: var(--color-surface-3);
+}
+
+.bottom-sheet__exercise--added {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.bottom-sheet__exercise-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bottom-sheet__exercise-name {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.bottom-sheet__exercise-meta {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  color: var(--color-text-secondary);
+}
+
+.bottom-sheet__added-label {
+  font-size: var(--text-label);
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.bottom-sheet__empty {
+  padding: var(--space-6) 0;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: var(--text-body);
+}

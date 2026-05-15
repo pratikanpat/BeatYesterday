@@ -1,0 +1,125 @@
+/* ═══════════════════════════════════════════════
+   Exercise Row — The unit of work
+   Design System §7.2
+   ═══════════════════════════════════════════════ */
+
+.exercise-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 72px;
+  background: var(--color-surface-1);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  gap: var(--space-3);
+  animation: fadeInUp 200ms var(--ease-out) both;
+}
+
+.exercise-row__left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex: 1;
+  min-width: 0;
+}
+
+.exercise-row__name-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.exercise-row__name {
+  font-family: var(--font-body);
+  font-size: var(--text-heading);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.exercise-row__pr-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-accent-dim);
+  border: 1px solid var(--color-accent);
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  font-weight: 600;
+  color: var(--color-accent);
+  animation: prBadgePop var(--duration-slow) var(--ease-spring) both;
+  white-space: nowrap;
+}
+
+.exercise-row__meta {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  color: var(--color-text-secondary);
+}
+
+.exercise-row__delta--positive {
+  color: var(--color-success);
+  font-weight: 500;
+}
+
+.exercise-row__delta--neutral {
+  color: var(--color-neutral);
+}
+
+.exercise-row__right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+
+.exercise-row__input {
+  width: 72px;
+  height: 48px;
+  text-align: right;
+  font-family: var(--font-display);
+  font-size: var(--text-stat);
+  letter-spacing: 0.02em;
+  color: var(--color-text-primary);
+  background: var(--color-surface-3);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  padding: 0 var(--space-2);
+  transition: border-color var(--duration-fast) var(--ease-out);
+}
+
+.exercise-row__input:focus {
+  border-color: var(--color-accent);
+}
+
+.exercise-row__input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.exercise-row__unit {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  color: var(--color-text-muted);
+  min-width: 28px;
+}
+
+.exercise-row__remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  color: var(--color-text-muted);
+  transition: color var(--duration-fast) var(--ease-out),
+              background var(--duration-fast) var(--ease-out);
+}
+
+.exercise-row__remove:active {
+  color: var(--color-accent);
+  background: var(--color-accent-dim);
+}
