@@ -27,9 +27,30 @@
     <a href="/app" class="nav__cta">OPEN APP →</a>
   </nav>
 
-  <!-- ═══ HERO ═══ -->
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 1 — HERO
+       Cinematic. Emotional. Immediately intense.
+       ═══════════════════════════════════════════════════════ -->
   <section class="hero" id="hero">
+    <!-- PLACEHOLDER: Background video
+         /public/assets/hero/midnight-training.mp4
+         Dark cinematic workout footage: pushups at night,
+         dim red lighting, laptop glow, movement blur,
+         sweaty atmosphere. Looping, muted, autoplay.
+         Fallback: /public/assets/hero/pushup-midnight.jpg -->
+    <div class="hero__video-wrap" aria-hidden="true">
+      <!-- Replace this div with:
+           <video class="hero__video" autoplay muted loop playsinline poster="/assets/hero/pushup-midnight.jpg">
+             <source src="/assets/hero/midnight-training.mp4" type="video/mp4" />
+           </video>
+      -->
+      <div class="hero__video-placeholder"></div>
+      <div class="hero__video-overlay"></div>
+    </div>
+
     <div class="hero__glow" aria-hidden="true"></div>
+    <div class="hero__particles" aria-hidden="true"></div>
+
     <div class="hero__content">
       <h1 class="hero__title">
         <span class="hero__line hero__line--1" data-reveal>BEAT</span>
@@ -41,13 +62,17 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
     </div>
+
     <div class="hero__scroll-hint" data-reveal>
       <span class="hero__scroll-line"></span>
       <span class="hero__scroll-text">SCROLL</span>
     </div>
   </section>
 
-  <!-- ═══ SECTION 2: THE PROBLEM ═══ -->
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 2 — THE PROBLEM
+       Emotional resonance. This is the hook.
+       ═══════════════════════════════════════════════════════ -->
   <section class="section section--problem" id="problem">
     <div class="section__inner">
       <div class="problem__text">
@@ -55,30 +80,69 @@
         <h2 class="mega-text mega-text--muted" data-reveal>YOU STOPPED<br>MOVING.</h2>
       </div>
       <div class="problem__visual" data-reveal>
-        <img src="images/hero-bg.png" alt="Late night workout next to a laptop" class="problem__image" loading="lazy" />
+        <!-- PLACEHOLDER: Image
+             /public/assets/problem/pushup-room.jpg
+             Style: dark room, laptop on desk, coding environment,
+             exhausted student/founder doing pushups on floor,
+             realistic, moody lighting, slightly blurry, raw atmosphere.
+             Aspect ratio: 3:4 portrait -->
+        <div class="problem__image-placeholder">
+          <span class="placeholder__label">pushup-room.jpg</span>
+          <span class="placeholder__desc">Dark room · Laptop glow · Pushups on floor</span>
+        </div>
         <div class="problem__image-overlay"></div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ SECTION 3: THE PHILOSOPHY ═══ -->
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 3 — THE PHILOSOPHY
+       The emotional thesis. Maximum typographic impact.
+       ═══════════════════════════════════════════════════════ -->
   <section class="section section--philosophy" id="philosophy">
     <div class="section__inner section__inner--center">
       <p class="section__label" data-reveal>● THE PHILOSOPHY</p>
+      <div class="philosophy__glow" aria-hidden="true"></div>
       <h2 class="mega-text mega-text--center" data-reveal>
         YOU DON'T NEED<br>PERFECT DISCIPLINE.
       </h2>
       <h2 class="mega-text mega-text--center mega-text--accent" data-reveal>
         YOU NEED<br>MOMENTUM.
       </h2>
-      <p class="section__body" data-reveal>
+      <p class="section__body section__body--philosophy" data-reveal>
         One set of pushups at midnight is still a set of pushups.<br>
         Progress doesn't require perfection. It requires showing up.
       </p>
     </div>
   </section>
 
-  <!-- ═══ SECTION 4: THE PRODUCT ═══ -->
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 4 — BUILT FOR
+       Identity. Who this is for.
+       ═══════════════════════════════════════════════════════ -->
+  <section class="section section--identity" id="identity">
+    <div class="section__inner section__inner--center">
+      <p class="section__label" data-reveal>● BUILT FOR</p>
+      <div class="identity__list">
+        <h2 class="identity__item" data-reveal>STUDENTS.</h2>
+        <h2 class="identity__item" data-reveal>FOUNDERS.</h2>
+        <h2 class="identity__item" data-reveal>CREATORS.</h2>
+        <h2 class="identity__item identity__item--small" data-reveal>
+          PEOPLE HOLDING LIFE TOGETHER<br>WITH CAFFEINE AND DEADLINES.
+        </h2>
+      </div>
+      <p class="section__body" data-reveal>
+        Not a gym app. Not a bodybuilding tracker.<br>
+        A tool for people who move despite the chaos.
+      </p>
+    </div>
+    <div class="identity__ambient" aria-hidden="true"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 5 — THE APP
+       Product showcase. Minimal. Intense. Premium.
+       ═══════════════════════════════════════════════════════ -->
   <section class="section section--product" id="product">
     <div class="section__inner">
       <div class="product__info">
@@ -105,39 +169,94 @@
         </div>
       </div>
       <div class="product__visual" data-reveal>
-        <img src="images/app-mockup.png" alt="BeatYesterday app showing a PR celebration" class="product__mockup" loading="lazy" />
+        <!-- PLACEHOLDER: App mockup
+             /public/assets/app/pr-screen.png
+             Style: minimal dark phone showing PR celebration screen.
+             Giant number "42", red glow, "+6 FROM PREVIOUS BEST",
+             "BEAT YESTERDAY" text. Premium, editorial, sport-tech.
+             No generic app-store style cards. -->
+        <div class="product__mockup-placeholder">
+          <div class="mockup__screen">
+            <span class="mockup__badge">BEAT YESTERDAY</span>
+            <span class="mockup__exercise">DIAMOND PUSHUPS</span>
+            <span class="mockup__number">42</span>
+            <span class="mockup__delta">+6 FROM PREVIOUS BEST</span>
+          </div>
+        </div>
         <div class="product__glow" aria-hidden="true"></div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ SECTION 5: IDENTITY ═══ -->
-  <section class="section section--identity" id="identity">
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 6 — MOVEMENT CULTURE
+       Visual montage. Underground athletic energy.
+       ═══════════════════════════════════════════════════════ -->
+  <section class="section section--culture" id="culture">
     <div class="section__inner section__inner--center">
-      <p class="section__label" data-reveal>● BUILT FOR</p>
-      <div class="identity__list">
-        <h2 class="identity__item" data-reveal>STUDENTS.</h2>
-        <h2 class="identity__item" data-reveal>FOUNDERS.</h2>
-        <h2 class="identity__item" data-reveal>CREATORS.</h2>
-        <h2 class="identity__item identity__item--small" data-reveal>
-          PEOPLE HOLDING LIFE TOGETHER<br>WITH CAFFEINE AND DEADLINES.
-        </h2>
+      <p class="section__label" data-reveal>● THE MOVEMENT</p>
+      <h2 class="mega-text mega-text--center" data-reveal>KEEP<br>MOVING.</h2>
+    </div>
+    <div class="culture__grid" data-reveal>
+      <!-- PLACEHOLDER: Movement montage images
+           All cinematic sports photography: grainy, moody,
+           emotional, movement-focused, closeups, realistic,
+           dark shadows, subtle red highlights.
+
+           /public/assets/culture/plank.jpg
+           — Close-up of plank hold, sweat dripping, floor texture
+
+           /public/assets/culture/pullup.jpg
+           — Silhouette pullup on doorframe bar, backlit
+
+           /public/assets/culture/stretch.jpg
+           — Morning stretch in dim apartment, window light
+
+           /public/assets/culture/sweat-closeup.jpg
+           — Extreme closeup of sweat on skin, red ambient glow
+      -->
+      <div class="culture__item culture__item--tall">
+        <div class="culture__placeholder">
+          <span class="placeholder__label">plank.jpg</span>
+          <span class="placeholder__desc">Plank hold · Sweat · Floor texture</span>
+        </div>
+        <div class="culture__overlay"></div>
       </div>
-      <p class="section__body" data-reveal>
-        Not a gym app. Not a bodybuilding tracker.<br>
-        A tool for people who move despite the chaos.
-      </p>
+      <div class="culture__item">
+        <div class="culture__placeholder">
+          <span class="placeholder__label">pullup.jpg</span>
+          <span class="placeholder__desc">Doorframe pullup · Silhouette · Backlit</span>
+        </div>
+        <div class="culture__overlay"></div>
+      </div>
+      <div class="culture__item">
+        <div class="culture__placeholder">
+          <span class="placeholder__label">sweat-closeup.jpg</span>
+          <span class="placeholder__desc">Sweat macro · Red ambient glow</span>
+        </div>
+        <div class="culture__overlay"></div>
+      </div>
+      <div class="culture__item culture__item--wide">
+        <div class="culture__placeholder">
+          <span class="placeholder__label">stretch.jpg</span>
+          <span class="placeholder__desc">Morning stretch · Dim apartment · Window light</span>
+        </div>
+        <div class="culture__overlay"></div>
+      </div>
     </div>
   </section>
 
-  <!-- ═══ SECTION 6: FINAL CTA ═══ -->
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 7 — FINAL CTA
+       Massive closing. Install. Ship it.
+       ═══════════════════════════════════════════════════════ -->
   <section class="section section--cta" id="install">
     <div class="section__inner section__inner--center">
       <div class="cta__glow" aria-hidden="true"></div>
-      <h2 class="cta__title" data-reveal>KEEP<br>MOVING.</h2>
+      <h2 class="cta__title" data-reveal>BEAT<br>YESTERDAY.</h2>
       <p class="cta__sub" data-reveal>Free. Offline. No login. No excuses.</p>
       <a href="/app" class="cta__button" data-reveal id="install-btn">
-        INSTALL BEATYESTERDAY
+        INSTALL APP
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       </a>
       <p class="cta__note" data-reveal>Works on any phone. No app store needed.</p>
