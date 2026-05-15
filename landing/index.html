@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#070707" />
+  <meta name="description" content="BeatYesterday — Track bodyweight workouts, beat your PRs, feel progress instantly. Built for students, founders, and anyone holding life together with caffeine." />
+  <title>BeatYesterday — Half an hour still counts.</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+
+  <link rel="icon" type="image/svg+xml" href="/app/favicon.svg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══ FILM GRAIN OVERLAY ═══ -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ═══ NAVIGATION ═══ -->
+  <nav class="nav" id="nav">
+    <a href="#" class="nav__logo">BEAT<span class="nav__logo-accent">YESTERDAY</span></a>
+    <a href="/app" class="nav__cta">OPEN APP →</a>
+  </nav>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero" id="hero">
+    <div class="hero__glow" aria-hidden="true"></div>
+    <div class="hero__content">
+      <h1 class="hero__title">
+        <span class="hero__line hero__line--1" data-reveal>BEAT</span>
+        <span class="hero__line hero__line--2" data-reveal>YESTERDAY.</span>
+      </h1>
+      <p class="hero__tagline" data-reveal>Half an hour still counts.</p>
+      <a href="/app" class="hero__cta" data-reveal>
+        START MOVING
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+    <div class="hero__scroll-hint" data-reveal>
+      <span class="hero__scroll-line"></span>
+      <span class="hero__scroll-text">SCROLL</span>
+    </div>
+  </section>
+
+  <!-- ═══ SECTION 2: THE PROBLEM ═══ -->
+  <section class="section section--problem" id="problem">
+    <div class="section__inner">
+      <div class="problem__text">
+        <h2 class="mega-text" data-reveal>LIFE GOT<br>CHAOTIC.</h2>
+        <h2 class="mega-text mega-text--muted" data-reveal>YOU STOPPED<br>MOVING.</h2>
+      </div>
+      <div class="problem__visual" data-reveal>
+        <img src="images/hero-bg.png" alt="Late night workout next to a laptop" class="problem__image" loading="lazy" />
+        <div class="problem__image-overlay"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SECTION 3: THE PHILOSOPHY ═══ -->
+  <section class="section section--philosophy" id="philosophy">
+    <div class="section__inner section__inner--center">
+      <p class="section__label" data-reveal>● THE PHILOSOPHY</p>
+      <h2 class="mega-text mega-text--center" data-reveal>
+        YOU DON'T NEED<br>PERFECT DISCIPLINE.
+      </h2>
+      <h2 class="mega-text mega-text--center mega-text--accent" data-reveal>
+        YOU NEED<br>MOMENTUM.
+      </h2>
+      <p class="section__body" data-reveal>
+        One set of pushups at midnight is still a set of pushups.<br>
+        Progress doesn't require perfection. It requires showing up.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ SECTION 4: THE PRODUCT ═══ -->
+  <section class="section section--product" id="product">
+    <div class="section__inner">
+      <div class="product__info">
+        <p class="section__label" data-reveal>● THE APP</p>
+        <h2 class="mega-text" data-reveal>LOG.<br>BEAT.<br>REPEAT.</h2>
+        <p class="section__body" data-reveal>
+          Open the app. Log your workout. See your PR. Close the app.<br><br>
+          No dashboards. No meal plans. No social feeds. No subscription before you can do a pushup.<br><br>
+          Just you vs. yesterday.
+        </p>
+        <div class="product__features" data-reveal>
+          <div class="product__feature">
+            <span class="product__feature-num">5</span>
+            <span class="product__feature-label">SECOND LOGGING</span>
+          </div>
+          <div class="product__feature">
+            <span class="product__feature-num">∞</span>
+            <span class="product__feature-label">OFFLINE FIRST</span>
+          </div>
+          <div class="product__feature">
+            <span class="product__feature-num">0</span>
+            <span class="product__feature-label">LOGIN REQUIRED</span>
+          </div>
+        </div>
+      </div>
+      <div class="product__visual" data-reveal>
+        <img src="images/app-mockup.png" alt="BeatYesterday app showing a PR celebration" class="product__mockup" loading="lazy" />
+        <div class="product__glow" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SECTION 5: IDENTITY ═══ -->
+  <section class="section section--identity" id="identity">
+    <div class="section__inner section__inner--center">
+      <p class="section__label" data-reveal>● BUILT FOR</p>
+      <div class="identity__list">
+        <h2 class="identity__item" data-reveal>STUDENTS.</h2>
+        <h2 class="identity__item" data-reveal>FOUNDERS.</h2>
+        <h2 class="identity__item" data-reveal>CREATORS.</h2>
+        <h2 class="identity__item identity__item--small" data-reveal>
+          PEOPLE HOLDING LIFE TOGETHER<br>WITH CAFFEINE AND DEADLINES.
+        </h2>
+      </div>
+      <p class="section__body" data-reveal>
+        Not a gym app. Not a bodybuilding tracker.<br>
+        A tool for people who move despite the chaos.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ SECTION 6: FINAL CTA ═══ -->
+  <section class="section section--cta" id="install">
+    <div class="section__inner section__inner--center">
+      <div class="cta__glow" aria-hidden="true"></div>
+      <h2 class="cta__title" data-reveal>KEEP<br>MOVING.</h2>
+      <p class="cta__sub" data-reveal>Free. Offline. No login. No excuses.</p>
+      <a href="/app" class="cta__button" data-reveal id="install-btn">
+        INSTALL BEATYESTERDAY
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </a>
+      <p class="cta__note" data-reveal>Works on any phone. No app store needed.</p>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <span class="footer__brand">BEATYESTERDAY</span>
+      <span class="footer__copy">© 2026. Ship before confidence.</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

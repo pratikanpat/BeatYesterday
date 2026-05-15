@@ -1,0 +1,72 @@
+/* ═══════════════════════════════════════════════
+   Export Data — Phase 3.5
+   CSV export button for Insights screen
+   ═══════════════════════════════════════════════ */
+
+.export-data {
+  background: var(--color-surface-1);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+
+.export-data__header {
+  margin-bottom: var(--space-3);
+}
+
+.export-data__label {
+  font-family: var(--font-display);
+  font-size: 24px;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.export-data__desc {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+/* ── Export Button ── */
+.export-data__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+  transition: border-color var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out),
+              background var(--duration-fast) var(--ease-out);
+}
+
+.export-data__btn:active {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: var(--color-accent-dim);
+  transform: scale(0.97);
+}
+
+/* ── Success state ── */
+.export-data__success {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  color: var(--color-success);
+  margin-top: var(--space-2);
+  opacity: 0;
+  animation: exportFadeIn 200ms var(--ease-out) forwards;
+}
+
+@keyframes exportFadeIn {
+  to { opacity: 1; }
+}

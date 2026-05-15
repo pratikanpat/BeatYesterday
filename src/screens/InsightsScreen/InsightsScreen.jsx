@@ -7,6 +7,8 @@ import BodyHeatmap from '../../components/BodyHeatmap/BodyHeatmap.jsx';
 import ChallengeCard from '../../components/ChallengeCard/ChallengeCard.jsx';
 import ChallengeCreator from '../../components/ChallengeCreator/ChallengeCreator.jsx';
 import GrindModeSelector from '../../components/GrindModeSelector/GrindModeSelector.jsx';
+import SleepEnergyCorrelation from '../../components/SleepEnergyCorrelation/SleepEnergyCorrelation.jsx';
+import ExportData from '../../components/ExportData/ExportData.jsx';
 import { getActiveChallenges, cancelChallenge } from '../../db/challengeService.js';
 import './InsightsScreen.css';
 
@@ -106,9 +108,19 @@ export default function InsightsScreen() {
           <BodyHeatmap />
         </section>
 
+        {/* Performance Insights */}
+        <section className="insights-screen__section">
+          <SleepEnergyCorrelation />
+        </section>
+
         {/* Grind Mode */}
         <section className="insights-screen__section">
           <GrindModeSelector />
+        </section>
+
+        {/* Export Data */}
+        <section className="insights-screen__section">
+          <ExportData />
         </section>
       </div>
 

@@ -4,6 +4,7 @@ import { Share2 } from 'lucide-react';
 import db from '../../db/db.js';
 import { getRecentLogs } from '../../db/prService.js';
 import PRShareCard from '../../components/PRShareCard/PRShareCard.jsx';
+import TrendChart from '../../components/TrendChart/TrendChart.jsx';
 import './PRsScreen.css';
 
 const FILTER_TABS = [
@@ -160,19 +161,25 @@ export default function PRsScreen() {
 
                 {card.sparklineData.length > 1 && (
                   <div className={`pr-card__sparkline ${isExpanded ? 'pr-card__sparkline--expanded' : ''}`}>
-                    <ResponsiveContainer width="100%" height={isExpanded ? 120 : 40}>
-                      <LineChart data={card.sparklineData}>
-                        <YAxis domain={['dataMin - 2', 'dataMax + 2']} hide />
-                        <Line
-                          type="monotone"
-                          dataKey="value"
-                          stroke="#555555"
-                          strokeWidth={1.5}
-                          dot={false}
-                          activeDot={isExpanded ? { r: 4, fill: '#E63946' } : false}
-                        />
-                      </LineChart>
-                    </ResponsiveContainer>
+                    {isExpanded ? (
+                      <TrendChart
+                        exerciseId={card.exerciseId}
+                        exerciseName={card.exerciseName}
+                      />
+                    ) : (
+                      <ResponsiveContainer width="100%" height={40}>
+                        <LineChart data={card.sparklineData}>
+                          <YAxis domain={['dataMin - 2', 'dataMax + 2']} hide />
+                          <Line
+                            type="monotone"
+                            dataKey="value"
+                            stroke="#555555"
+                            strokeWidth={1.5}
+                            dot={false}
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    )}
                   </div>
                 )}
               </button>

@@ -51,7 +51,9 @@ BeatYesterday/
 │   │   ├── consistencyService.js # Consistency score, muscle group coverage
 │   │   ├── heatmapService.js     # Year heatmap data, weekly recap
 │   │   ├── challengeService.js   # 30-day challenges, presets, auto-tracking
-│   │   └── notificationService.js # Minimal notifications (Sunday recap, PR, challenge)
+│   │   ├── notificationService.js # Minimal notifications (Sunday recap, PR, challenge)
+│   │   ├── exportService.js      # CSV data export
+│   │   └── analyticsService.js   # Exercise trends, sleep/energy correlation
 │   ├── store/
 │   │   └── useWorkoutStore.js    # Zustand store (session, UI, celebration, checkin, challenges)
 │   ├── styles/
@@ -70,6 +72,9 @@ BeatYesterday/
 │   │   ├── ConsistencyCard/      # Rolling 30-day consistency score
 │   │   ├── BodyHeatmap/          # Muscle group coverage visualization
 │   │   ├── PRShareCard/          # Auto-generated PR share card (canvas)
+│   │   ├── ExportData/           # CSV data export button
+│   │   ├── TrendChart/           # 30-day trend with 7-day moving average
+│   │   ├── SleepEnergyCorrelation/ # Energy/sleep vs performance charts
 │   │   ├── YearHeatmap/          # GitHub-style 365-day activity grid
 │   │   ├── WeeklyRecap/          # Weekly summary with day bars
 │   │   ├── ChallengeCard/        # 30-day challenge progress card
@@ -271,6 +276,43 @@ All UI decisions are documented in `design_system.md`. Key rules:
 - [x] Optional evening challenge reminder
 - [x] No spam — localStorage prevents duplicates
 
+## Phase 3.5 Features Implemented
+
+### CSV Data Export
+- [x] One-tap CSV download from Insights screen
+- [x] Exports all sessions, exercises, reps, PRs, categories
+- [x] Blob + download link approach, no server needed
+- [x] ExportData component in InsightsScreen
+
+### Advanced Analytics
+- [x] 30-day exercise trend chart with 7-day moving average (TrendChart)
+- [x] Trend direction indicator: ↑ Improving / → Stable / ↓ Declining
+- [x] TrendChart integrated into expanded PR cards on PRsScreen
+- [x] Sleep/energy correlation charts (SleepEnergyCorrelation)
+- [x] Bar charts showing avg volume by energy level and sleep quality
+- [x] Locked state until 5+ check-ins exist
+- [x] Auto-generated insight text
+
+### PR Share Card Themes
+- [x] 3 themes: Original (red), Midnight (indigo), Fire (orange)
+- [x] Theme selector dots above canvas preview
+- [x] All canvas colors driven by theme config
+
+### Cinematic Landing Page
+- [x] Full landing page in `/landing/` (vanilla HTML/CSS/JS)
+- [x] 6 sections: Hero, Problem, Philosophy, Product, Identity, CTA
+- [x] Scroll reveal animations, parallax hero, film grain overlay
+- [x] Generated hero background + app mockup images
+- [x] CTAs wired to `/app` (React PWA)
+- [x] PWA install prompt integration
+
+### Deploy Configuration
+- [x] `vercel.json` — landing at `/`, React PWA at `/app`
+- [x] Vite build produces dual output via copy plugin
+- [x] PWA manifest scoped to `/app`
+- [x] Asset caching headers configured
+- [x] Build succeeds (`npm run build`)
+
 ---
 
 ## What's NOT Built Yet
@@ -288,10 +330,23 @@ All UI decisions are documented in `design_system.md`. Key rules:
 ```bash
 cd BeatYesterday
 npm install
-npm run dev
+npm run dev        # Development server on localhost:3000
+npm run build      # Production build to dist/
+npm run preview    # Preview production build
 ```
 
-Opens on `http://localhost:3000`. Use Chrome DevTools mobile emulation (iPhone SE 375px) for best experience.
+App opens on `http://localhost:3000`. Use Chrome DevTools mobile emulation (iPhone SE 375px) for best experience.
+
+### Deploy to Vercel
+
+```bash
+npm i -g vercel
+vercel --prod
+```
+
+Routing:
+- `/` → Landing page (cinematic)
+- `/app` → React PWA (workout tracker)
 
 ---
 
@@ -299,6 +354,7 @@ Opens on `http://localhost:3000`. Use Chrome DevTools mobile emulation (iPhone S
 
 | Date | Change |
 |---|---|
+| 2026-05-15 | Phase 3.5 — CSV export, advanced analytics, PR share themes, landing page, deploy config |
 | 2026-05-15 | Phase 3 complete — Insights tab, year heatmap, challenges, grind modes, PWA, onboarding |
 | 2026-05-15 | Phase 2 complete — all features wired into screens |
 | 2026-05-15 | Initial Phase 1 build — all 3 screens, DB, store, PR celebration, exercise seed |

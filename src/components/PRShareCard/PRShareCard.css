@@ -62,6 +62,35 @@
   border-radius: var(--radius-md);
 }
 
+/* ── Theme Selector ── */
+.pr-share-card__themes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: 0 var(--space-3) var(--space-2);
+}
+
+.pr-share-card__theme-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-border);
+  background: var(--dot-color);
+  transition: border-color var(--duration-fast) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
+  cursor: pointer;
+}
+
+.pr-share-card__theme-dot--active {
+  border-color: var(--dot-color);
+  transform: scale(1.15);
+}
+
+.pr-share-card__theme-dot:active {
+  transform: scale(0.9);
+}
+
 /* ── Actions ── */
 .pr-share-card__actions {
   display: flex;
