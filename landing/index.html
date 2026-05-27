@@ -13,10 +13,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
 
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <!-- Lenis smooth scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+
   <link rel="icon" type="image/svg+xml" href="/app/favicon.svg" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+  <!-- ═══ SCROLL PROGRESS ═══ -->
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- ═══ CUSTOM CURSOR ═══ -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
 
   <!-- ═══ FILM GRAIN OVERLAY ═══ -->
   <div class="grain" aria-hidden="true"></div>
@@ -29,15 +42,8 @@
 
   <!-- ═══════════════════════════════════════════════════════
        SECTION 1 — HERO
-       Cinematic. Emotional. Immediately intense.
        ═══════════════════════════════════════════════════════ -->
   <section class="hero" id="hero">
-    <!-- PLACEHOLDER: Background video
-         /public/assets/hero/midnight-training.mp4
-         Dark cinematic workout footage: pushups at night,
-         dim red lighting, laptop glow, movement blur,
-         sweaty atmosphere. Looping, muted, autoplay.
-         Fallback: /public/assets/hero/pushup-midnight.jpg -->
     <div class="hero__video-wrap" aria-hidden="true">
       <img
         class="hero__video-placeholder hero__bg-image"
@@ -52,35 +58,62 @@
     <div class="hero__glow" aria-hidden="true"></div>
     <div class="hero__particles" aria-hidden="true"></div>
 
+    <!-- Vignette corners -->
+    <div class="hero__vignette" aria-hidden="true"></div>
+
     <div class="hero__content">
+      <div class="hero__eyebrow">PERFORMANCE TRACKER</div>
       <h1 class="hero__title">
-        <span class="hero__line hero__line--1" data-reveal>BEAT</span>
-        <span class="hero__line hero__line--2" data-reveal>YESTERDAY.</span>
+        <span class="hero__line hero__line--1">BEAT</span>
+        <span class="hero__line hero__line--2">YESTERDAY.</span>
       </h1>
-      <p class="hero__tagline" data-reveal>Half an hour still counts.</p>
-      <a href="/app" class="hero__cta" data-reveal>
+      <p class="hero__tagline">Half an hour still counts.</p>
+      <a href="/app" class="hero__cta" id="hero-cta">
         START MOVING
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
     </div>
 
-    <div class="hero__scroll-hint" data-reveal>
+    <div class="hero__scroll-hint">
       <span class="hero__scroll-line"></span>
       <span class="hero__scroll-text">SCROLL</span>
     </div>
   </section>
 
+  <!-- ═══ STATS TICKER ═══ -->
+  <div class="stats-ticker" aria-hidden="true">
+    <div class="stats-ticker__track">
+      <div class="stats-ticker__inner">
+        <span class="stats-ticker__item">FREE FOREVER</span>
+        <span class="stats-ticker__sep">✦</span>
+        <span class="stats-ticker__item">OFFLINE FIRST</span>
+        <span class="stats-ticker__sep">✦</span>
+        <span class="stats-ticker__item">5 SECOND LOGGING</span>
+        <span class="stats-ticker__sep">✦</span>
+        <span class="stats-ticker__item">NO LOGIN REQUIRED</span>
+        <span class="stats-ticker__sep">✦</span>
+        <span class="stats-ticker__item">JUST YOU VS YESTERDAY</span>
+        <span class="stats-ticker__sep">✦</span>
+        <span class="stats-ticker__item">BEAT YOUR PR</span>
+        <span class="stats-ticker__sep">✦</span>
+      </div>
+    </div>
+  </div>
+
   <!-- ═══════════════════════════════════════════════════════
        SECTION 2 — THE PROBLEM
-       Emotional resonance. This is the hook.
        ═══════════════════════════════════════════════════════ -->
   <section class="section section--problem" id="problem">
     <div class="section__inner">
       <div class="problem__text">
-        <h2 class="mega-text" data-reveal>LIFE GOT<br>CHAOTIC.</h2>
-        <h2 class="mega-text mega-text--muted" data-reveal>YOU STOPPED<br>MOVING.</h2>
+        <h2 class="mega-text">LIFE GOT<br>CHAOTIC.</h2>
+        <h2 class="mega-text mega-text--muted">YOU STOPPED<br>MOVING.</h2>
+        <p class="section__body" style="margin-top: 40px;">
+          Between deadlines, caffeine, and three browser tabs with "how to be productive",
+          movement became the first thing to go.
+        </p>
       </div>
-      <div class="problem__visual" data-reveal>
+      <div class="problem__visual">
         <img
           class="problem__image"
           src="images/tyler-raye-Xb1d-N04Quc-unsplash.jpg"
@@ -88,25 +121,27 @@
           loading="lazy"
         />
         <div class="problem__image-overlay"></div>
+        <div class="problem__image-label">
+          <span>THE GRIP</span>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════════════════════════
        SECTION 3 — THE PHILOSOPHY
-       The emotional thesis. Maximum typographic impact.
        ═══════════════════════════════════════════════════════ -->
   <section class="section section--philosophy" id="philosophy">
     <div class="section__inner section__inner--center">
-      <p class="section__label" data-reveal>● THE PHILOSOPHY</p>
+      <p class="section__label">● THE PHILOSOPHY</p>
       <div class="philosophy__glow" aria-hidden="true"></div>
-      <h2 class="mega-text mega-text--center" data-reveal>
+      <h2 class="mega-text mega-text--center">
         YOU DON'T NEED<br>PERFECT DISCIPLINE.
       </h2>
-      <h2 class="mega-text mega-text--center mega-text--accent" data-reveal>
+      <h2 class="mega-text mega-text--center mega-text--accent">
         YOU NEED<br>MOMENTUM.
       </h2>
-      <p class="section__body section__body--philosophy" data-reveal>
+      <p class="section__body section__body--philosophy">
         One set of pushups at midnight is still a set of pushups.<br>
         Progress doesn't require perfection. It requires showing up.
       </p>
@@ -115,20 +150,19 @@
 
   <!-- ═══════════════════════════════════════════════════════
        SECTION 4 — BUILT FOR
-       Identity. Who this is for.
        ═══════════════════════════════════════════════════════ -->
   <section class="section section--identity" id="identity">
     <div class="section__inner section__inner--center">
-      <p class="section__label" data-reveal>● BUILT FOR</p>
+      <p class="section__label">● BUILT FOR</p>
       <div class="identity__list">
-        <h2 class="identity__item" data-reveal>STUDENTS.</h2>
-        <h2 class="identity__item" data-reveal>FOUNDERS.</h2>
-        <h2 class="identity__item" data-reveal>CREATORS.</h2>
-        <h2 class="identity__item identity__item--small" data-reveal>
+        <h2 class="identity__item">STUDENTS.</h2>
+        <h2 class="identity__item">FOUNDERS.</h2>
+        <h2 class="identity__item">CREATORS.</h2>
+        <h2 class="identity__item identity__item--small">
           PEOPLE HOLDING LIFE TOGETHER<br>WITH CAFFEINE AND DEADLINES.
         </h2>
       </div>
-      <p class="section__body" data-reveal>
+      <p class="section__body">
         Not a gym app. Not a bodybuilding tracker.<br>
         A tool for people who move despite the chaos.
       </p>
@@ -138,19 +172,18 @@
 
   <!-- ═══════════════════════════════════════════════════════
        SECTION 5 — THE APP
-       Product showcase. Minimal. Intense. Premium.
        ═══════════════════════════════════════════════════════ -->
   <section class="section section--product" id="product">
     <div class="section__inner">
       <div class="product__info">
-        <p class="section__label" data-reveal>● THE APP</p>
-        <h2 class="mega-text" data-reveal>LOG.<br>BEAT.<br>REPEAT.</h2>
-        <p class="section__body" data-reveal>
+        <p class="section__label">● THE APP</p>
+        <h2 class="mega-text">LOG.<br>BEAT.<br>REPEAT.</h2>
+        <p class="section__body">
           Open the app. Log your workout. See your PR. Close the app.<br><br>
           No dashboards. No meal plans. No social feeds. No subscription before you can do a pushup.<br><br>
           Just you vs. yesterday.
         </p>
-        <div class="product__features" data-reveal>
+        <div class="product__features">
           <div class="product__feature">
             <span class="product__feature-num">5</span>
             <span class="product__feature-label">SECOND LOGGING</span>
@@ -165,13 +198,7 @@
           </div>
         </div>
       </div>
-      <div class="product__visual" data-reveal>
-        <!-- PLACEHOLDER: App mockup
-             /public/assets/app/pr-screen.png
-             Style: minimal dark phone showing PR celebration screen.
-             Giant number "42", red glow, "+6 FROM PREVIOUS BEST",
-             "BEAT YESTERDAY" text. Premium, editorial, sport-tech.
-             No generic app-store style cards. -->
+      <div class="product__visual">
         <div class="product__mockup-placeholder">
           <div class="mockup__screen">
             <span class="mockup__badge">BEAT YESTERDAY</span>
@@ -187,31 +214,13 @@
 
   <!-- ═══════════════════════════════════════════════════════
        SECTION 6 — MOVEMENT CULTURE
-       Visual montage. Underground athletic energy.
        ═══════════════════════════════════════════════════════ -->
   <section class="section section--culture" id="culture">
     <div class="section__inner section__inner--center">
-      <p class="section__label" data-reveal>● THE MOVEMENT</p>
-      <h2 class="mega-text mega-text--center" data-reveal>KEEP<br>MOVING.</h2>
+      <p class="section__label">● THE MOVEMENT</p>
+      <h2 class="mega-text mega-text--center">KEEP<br>MOVING.</h2>
     </div>
-    <div class="culture__grid" data-reveal>
-      <!-- PLACEHOLDER: Movement montage images
-           All cinematic sports photography: grainy, moody,
-           emotional, movement-focused, closeups, realistic,
-           dark shadows, subtle red highlights.
-
-           /public/assets/culture/plank.jpg
-           — Close-up of plank hold, sweat dripping, floor texture
-
-           /public/assets/culture/pullup.jpg
-           — Silhouette pullup on doorframe bar, backlit
-
-           /public/assets/culture/stretch.jpg
-           — Morning stretch in dim apartment, window light
-
-           /public/assets/culture/sweat-closeup.jpg
-           — Extreme closeup of sweat on skin, red ambient glow
-      -->
+    <div class="culture__grid">
       <div class="culture__item culture__item--tall">
         <img
           class="culture__img"
@@ -233,8 +242,8 @@
       <div class="culture__item">
         <img
           class="culture__img"
-          src="images/Finding Aesthetics.webp"
-          alt="Black and white closeup of an athlete's arm and physique"
+          src="images/Finding%20Aesthetics.webp"
+          alt="Black and white closeup of an athlete's arm"
           loading="lazy"
         />
         <div class="culture__overlay"></div>
@@ -242,7 +251,7 @@
       <div class="culture__item culture__item--wide">
         <img
           class="culture__img"
-          src="images/Men's Workout Must-Haves.jpg"
+          src="images/Men%27s%20Workout%20Must-Haves.jpg"
           alt="Two athletes posing confidently in a gym"
           loading="lazy"
         />
@@ -253,18 +262,18 @@
 
   <!-- ═══════════════════════════════════════════════════════
        SECTION 7 — FINAL CTA
-       Massive closing. Install. Ship it.
        ═══════════════════════════════════════════════════════ -->
   <section class="section section--cta" id="install">
     <div class="section__inner section__inner--center">
       <div class="cta__glow" aria-hidden="true"></div>
-      <h2 class="cta__title" data-reveal>BEAT<br>YESTERDAY.</h2>
-      <p class="cta__sub" data-reveal>Free. Offline. No login. No excuses.</p>
-      <a href="/app" class="cta__button" data-reveal id="install-btn">
+      <p class="section__label">● START NOW</p>
+      <h2 class="cta__title">BEAT<br>YESTERDAY.</h2>
+      <p class="cta__sub">Free. Offline. No login. No excuses.</p>
+      <a href="/app" class="cta__button" id="install-btn">
         INSTALL APP
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       </a>
-      <p class="cta__note" data-reveal>Works on any phone. No app store needed.</p>
+      <p class="cta__note">Works on any phone. No app store needed.</p>
     </div>
   </section>
 
@@ -276,6 +285,6 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
