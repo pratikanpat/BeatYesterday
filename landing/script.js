@@ -598,6 +598,63 @@
     });
 
     /* ─────────────────────────────────────
+       STATEMENT — line mask reveals
+    ───────────────────────────────────── */
+    const statementLines = document.querySelectorAll('.statement__line');
+    if (statementLines.length) {
+      gsap.fromTo(statementLines,
+        { y: '105%', opacity: 0 },
+        {
+          y: '0%', opacity: 1,
+          duration: 1.1, ease: 'power4.out',
+          stagger: { each: 0.12, from: 'start' },
+          scrollTrigger: { trigger: '#statement', start: 'top 70%', toggleActions: 'play none none none' },
+        }
+      );
+    }
+
+    /* ─────────────────────────────────────
+       METRICS — animated counters
+    ───────────────────────────────────── */
+    const metricValues = document.querySelectorAll('.metrics__value[data-target]');
+    if (metricValues.length) {
+      ScrollTrigger.create({
+        trigger: '#metrics-grid',
+        start: 'top 75%',
+        once: true,
+        onEnter: () => {
+          metricValues.forEach((el) => {
+            const target  = parseInt(el.dataset.target, 10);
+            const prefix  = el.dataset.prefix  || '';
+            const suffix  = el.dataset.suffix  || '';
+            const obj     = { val: 0 };
+            gsap.to(obj, {
+              val: target, duration: 1.8, ease: 'power3.out',
+              onUpdate() { el.textContent = prefix + Math.round(obj.val) + suffix; },
+            });
+            /* Animate progress bar */
+            const item = el.closest('.metrics__item');
+            if (item) item.classList.add('is-counted');
+          });
+        },
+      });
+    }
+
+    /* ─────────────────────────────────────
+       FOOTER — statement reveal
+    ───────────────────────────────────── */
+    const footerStatement = document.getElementById('footer-statement');
+    if (footerStatement) {
+      gsap.fromTo(footerStatement,
+        { y: 80, opacity: 0 },
+        {
+          y: 0, opacity: 1, duration: 1.3, ease: 'power3.out',
+          scrollTrigger: { trigger: '.footer__cta-wrap', start: 'top 80%', toggleActions: 'play none none none' },
+        }
+      );
+    }
+
+    /* ─────────────────────────────────────
        PWA INSTALL PROMPT
     ───────────────────────────────────── */
     let deferredPrompt;

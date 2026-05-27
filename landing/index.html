@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#070707" />
   <meta name="description" content="BeatYesterday — Track bodyweight workouts, beat your PRs, feel progress instantly. Built for students, founders, and anyone holding life together with caffeine." />
-  <title>BeatYesterday — Half an hour still counts.</title>
+  <title>BeatYesterday — No zero days.</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,22 +21,15 @@
 </head>
 <body>
 
-  <!-- ── Environmental layers ── -->
+  <!-- ── Environmental ── -->
   <canvas id="particles-canvas" aria-hidden="true"></canvas>
-
-  <!-- Animated energy background: gradient blobs + subtle grid -->
-  <div id="energy-bg" aria-hidden="true">
-    <div class="energy-bg__grid"></div>
-  </div>
-
-  <div id="light-orb" aria-hidden="true"></div>
+  <div id="energy-bg" aria-hidden="true"><div class="energy-bg__grid"></div></div>
+  <div id="light-orb"   aria-hidden="true"></div>
   <div id="light-orb-2" aria-hidden="true"></div>
-
-  <!-- ── UI chrome ── -->
   <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
-  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor"     id="cursor"     aria-hidden="true"></div>
   <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
-  <div class="grain" aria-hidden="true"></div>
+  <div class="grain"      aria-hidden="true"></div>
 
   <!-- ═══ NAV ═══ -->
   <nav class="nav" id="nav">
@@ -44,34 +37,38 @@
     <a href="/app" class="nav__cta" id="nav-cta">OPEN APP →</a>
   </nav>
 
-  <!-- ═══════════════════════════════════════════
-       HERO — Cinematic opening
-  ════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════ -->
   <section class="hero" id="hero">
+
+    <!-- Bg image -->
     <div class="hero__bg-wrap" aria-hidden="true">
-      <img
-        id="hero-bg"
-        class="hero__bg-img"
+      <img id="hero-bg" class="hero__bg-img"
         src="images/brett-jordan-U2q73PfHFpM-unsplash.jpg"
-        alt=""
-        loading="eager"
-        fetchpriority="high"
-      />
+        alt="" loading="eager" fetchpriority="high" />
       <div class="hero__bg-overlay"></div>
     </div>
 
+    <!-- Giant background word — depth layer -->
+    <div class="hero__bg-word" aria-hidden="true">DISCIPLINE</div>
+
+    <!-- Bottom ambient glow -->
+    <div class="hero__bottom-glow" aria-hidden="true"></div>
+
     <div class="hero__atmosphere" aria-hidden="true"></div>
 
+    <!-- Content -->
     <div class="hero__content" id="hero-content">
       <div class="hero__eyebrow" id="hero-eyebrow">PERFORMANCE TRACKER</div>
       <h1 class="hero__title">
         <span class="hero__line" id="hero-line-1" data-split-chars>BEAT</span>
         <span class="hero__line hero__line--accent" id="hero-line-2" data-split-chars>YESTERDAY.</span>
       </h1>
-      <p class="hero__tagline" id="hero-tagline">Half an hour still counts.</p>
+      <p class="hero__tagline" id="hero-tagline">No zero days.</p>
       <a href="/app" class="hero__cta magnetic-btn" id="hero-cta">
         START MOVING
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        <span class="hero__cta-arrow">→</span>
       </a>
     </div>
 
@@ -95,7 +92,7 @@
         <span class="stats-ticker__sep">✦</span>
         <span class="stats-ticker__item">JUST YOU VS YESTERDAY</span>
         <span class="stats-ticker__sep">✦</span>
-        <span class="stats-ticker__item">BEAT YOUR PR</span>
+        <span class="stats-ticker__item">NO ZERO DAYS</span>
         <span class="stats-ticker__sep">✦</span>
         <span class="stats-ticker__item">BODYWEIGHT ONLY</span>
         <span class="stats-ticker__sep">✦</span>
@@ -103,9 +100,24 @@
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════
-       THE PROBLEM — Split reveal
-  ════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════
+       STATEMENT — cinematic bridge
+  ════════════════════════════════════════════ -->
+  <section class="section--statement" id="statement">
+    <div class="statement__inner">
+      <h2 class="statement__text" id="statement-text">
+        <span class="statement__line">DISCIPLINE</span>
+        <span class="statement__line statement__line--indent">IS A</span>
+        <span class="statement__line statement__line--indent2">DAILY</span>
+        <span class="statement__line statement__line--accent">DECISION.</span>
+      </h2>
+    </div>
+    <div class="statement__side-label" aria-hidden="true">THE MINDSET</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       THE PROBLEM
+  ════════════════════════════════════════════ -->
   <section class="section section--problem" id="problem">
     <div class="section__inner">
       <div class="problem__text" id="problem-text">
@@ -118,12 +130,9 @@
       </div>
       <div class="problem__visual" id="problem-visual">
         <div class="problem__img-clip">
-          <img
-            class="problem__image"
+          <img class="problem__image"
             src="images/tyler-raye-Xb1d-N04Quc-unsplash.jpg"
-            alt="Intense grip on a barbell — raw athletic effort"
-            loading="lazy"
-          />
+            alt="Intense grip on a barbell" loading="lazy" />
         </div>
         <div class="problem__image-overlay"></div>
         <div class="problem__image-label">THE GRIP</div>
@@ -131,9 +140,9 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       PHILOSOPHY — Horizontal scroll journey
-  ════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════
+       PHILOSOPHY — horizontal journey
+  ════════════════════════════════════════════ -->
   <section class="section--philosophy" id="philosophy">
     <div class="philosophy__inner" id="philosophy-inner">
 
@@ -163,9 +172,9 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       BUILT FOR — Identity cascade
-  ════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════
+       BUILT FOR — identity
+  ════════════════════════════════════════════ -->
   <section class="section section--identity" id="identity">
     <div class="section__inner section__inner--center">
       <p class="section__label">● BUILT FOR</p>
@@ -185,9 +194,45 @@
     <div class="identity__ambient" aria-hidden="true"></div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       THE APP — Product
-  ════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════
+       PERFORMANCE METRICS — WHOOP/Garmin UI
+  ════════════════════════════════════════════ -->
+  <section class="section--metrics" id="metrics">
+    <div class="metrics__header">
+      <p class="section__label">● YOUR NUMBERS</p>
+      <h2 class="mega-text">THE DATA<br>DOESN'T LIE.</h2>
+    </div>
+    <div class="metrics__grid" id="metrics-grid">
+      <div class="metrics__item">
+        <span class="metrics__tag">TODAY</span>
+        <span class="metrics__value" data-target="45" data-suffix=" MIN">0</span>
+        <span class="metrics__sub">workout time</span>
+        <div class="metrics__bar"><div class="metrics__bar-fill" style="width:75%"></div></div>
+      </div>
+      <div class="metrics__item">
+        <span class="metrics__tag">STREAK</span>
+        <span class="metrics__value" data-target="28" data-suffix=" DAYS">0</span>
+        <span class="metrics__sub">consecutive</span>
+        <div class="metrics__bar"><div class="metrics__bar-fill" style="width:93%"></div></div>
+      </div>
+      <div class="metrics__item">
+        <span class="metrics__tag">CONSISTENCY</span>
+        <span class="metrics__value" data-target="92" data-suffix="%">0</span>
+        <span class="metrics__sub">past 30 days</span>
+        <div class="metrics__bar"><div class="metrics__bar-fill" style="width:92%"></div></div>
+      </div>
+      <div class="metrics__item metrics__item--highlight">
+        <span class="metrics__tag">YOU VS YESTERDAY</span>
+        <span class="metrics__value metrics__value--accent" data-target="1" data-prefix="+" data-suffix="%">0</span>
+        <span class="metrics__sub">progress delta</span>
+        <div class="metrics__bar metrics__bar--accent"><div class="metrics__bar-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       THE APP
+  ════════════════════════════════════════════ -->
   <section class="section section--product" id="product">
     <div class="section__inner">
       <div class="product__info" id="product-info">
@@ -229,65 +274,79 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       THE MOVEMENT — Culture grid
-  ════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════
+       THE MOVEMENT — culture
+  ════════════════════════════════════════════ -->
   <section class="section section--culture" id="culture">
     <div class="section__inner section__inner--center">
       <p class="section__label">● THE MOVEMENT</p>
       <h2 class="mega-text mega-text--center" id="culture-head">KEEP<br>MOVING.</h2>
     </div>
     <div class="culture__grid" id="culture-grid">
-
       <div class="culture__item culture__item--tall" data-clip="bottom">
         <img class="culture__img" src="images/marvin-cors-byfg3pTFIAQ-unsplash.jpg"
           alt="Athlete lifting dumbbell overhead" loading="lazy" />
         <div class="culture__overlay"></div>
       </div>
-
       <div class="culture__item" data-clip="left">
         <img class="culture__img" src="images/spencer-davis-0ShTs8iPY28-unsplash.jpg"
           alt="Athlete with battle ropes" loading="lazy" />
         <div class="culture__overlay"></div>
       </div>
-
       <div class="culture__item" data-clip="right">
         <img class="culture__img" src="images/finding-aesthetics.webp"
           alt="Athletic physique closeup" loading="lazy" />
         <div class="culture__overlay"></div>
       </div>
-
       <div class="culture__item culture__item--wide" data-clip="top">
         <img class="culture__img" src="images/mens-workout.jpg"
           alt="Two athletes in a gym" loading="lazy" />
         <div class="culture__overlay"></div>
       </div>
-
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       FINAL CTA
-  ════════════════════════════════════════════════ -->
-  <section class="section section--cta" id="install">
-    <div class="section__inner section__inner--center">
-      <div class="cta__glow" aria-hidden="true"></div>
-      <p class="section__label">● START NOW</p>
-      <h2 class="cta__title" id="cta-title">BEAT<br>YESTERDAY.</h2>
-      <p class="cta__sub" id="cta-sub">Free. Offline. No login. No excuses.</p>
-      <a href="/app" class="cta__button magnetic-btn" id="install-btn">
-        INSTALL APP
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+  <!-- ═══════════════════════════════════════
+       FOOTER — documentary ending
+  ════════════════════════════════════════════ -->
+  <footer class="footer" id="install">
+
+    <!-- Faded background word -->
+    <div class="footer__bg-word" aria-hidden="true">MOVE.</div>
+
+    <!-- Ambient glow -->
+    <div class="footer__glow" aria-hidden="true"></div>
+
+    <!-- CTA statement -->
+    <div class="footer__cta-wrap">
+      <h2 class="footer__statement" id="footer-statement">
+        READY TO<br>OUTRUN<br>YOUR OLD SELF?
+      </h2>
+      <a href="/app" class="footer__cta-btn magnetic-btn" id="install-btn">
+        START NOW →
       </a>
-      <p class="cta__note" id="cta-note">Works on any phone. No app store needed.</p>
+      <p class="footer__note">Free. Offline. No login. No excuses.</p>
     </div>
-  </section>
 
-  <footer class="footer">
-    <div class="footer__inner">
-      <span class="footer__brand">BEATYESTERDAY</span>
-      <span class="footer__copy">© 2026. Ship before confidence.</span>
+    <!-- Bottom strip -->
+    <div class="footer__bottom">
+      <div class="footer__col">
+        <span class="footer__logo">BEAT<span class="footer__logo-accent">YESTERDAY</span></span>
+        <p class="footer__tagline">© 2026. Ship before confidence.</p>
+      </div>
+      <div class="footer__col footer__col--center">
+        <p class="footer__creed">Built for disciplined people.</p>
+      </div>
+      <div class="footer__col footer__col--right">
+        <div class="footer__links">
+          <a href="#" class="footer__link">Instagram</a>
+          <a href="#" class="footer__link">X</a>
+          <a href="#" class="footer__link">GitHub</a>
+          <a href="#" class="footer__link">Contact</a>
+        </div>
+      </div>
     </div>
+
   </footer>
 
   <script src="script.js" defer></script>
