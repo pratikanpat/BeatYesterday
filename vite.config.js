@@ -23,12 +23,13 @@ function serveLandingDev() {
           return next();
         }
 
-        // Map URL to landing/ directory
+        // Map URL to landing/ directory (decode %20 etc.)
         let filePath;
-        if (url === '/' || url === '/index.html') {
+        const decodedUrl = decodeURIComponent(url);
+        if (decodedUrl === '/' || decodedUrl === '/index.html') {
           filePath = resolve(__dirname, 'landing/index.html');
         } else {
-          filePath = resolve(__dirname, 'landing', url.slice(1));
+          filePath = resolve(__dirname, 'landing', decodedUrl.slice(1));
         }
 
         // Serve file if it exists

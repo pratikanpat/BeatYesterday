@@ -7,16 +7,13 @@
   <meta name="description" content="BeatYesterday — Track bodyweight workouts, beat your PRs, feel progress instantly. Built for students, founders, and anyone holding life together with caffeine." />
   <title>BeatYesterday — Half an hour still counts.</title>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
 
-  <!-- GSAP + ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-  <!-- Lenis smooth scroll -->
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
 
   <link rel="icon" type="image/svg+xml" href="/app/favicon.svg" />
@@ -24,57 +21,54 @@
 </head>
 <body>
 
-  <!-- ═══ SCROLL PROGRESS ═══ -->
-  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+  <!-- ── Environmental layers ── -->
+  <canvas id="particles-canvas" aria-hidden="true"></canvas>
+  <div id="light-orb" aria-hidden="true"></div>
 
-  <!-- ═══ CUSTOM CURSOR ═══ -->
+  <!-- ── UI chrome ── -->
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
   <div class="cursor" id="cursor" aria-hidden="true"></div>
   <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
-
-  <!-- ═══ FILM GRAIN OVERLAY ═══ -->
   <div class="grain" aria-hidden="true"></div>
 
-  <!-- ═══ NAVIGATION ═══ -->
+  <!-- ═══ NAV ═══ -->
   <nav class="nav" id="nav">
     <a href="#" class="nav__logo">BEAT<span class="nav__logo-accent">YESTERDAY</span></a>
-    <a href="/app" class="nav__cta">OPEN APP →</a>
+    <a href="/app" class="nav__cta" id="nav-cta">OPEN APP →</a>
   </nav>
 
-  <!-- ═══════════════════════════════════════════════════════
-       SECTION 1 — HERO
-       ═══════════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════════
+       HERO — Cinematic opening
+  ════════════════════════════════════════════════ -->
   <section class="hero" id="hero">
-    <div class="hero__video-wrap" aria-hidden="true">
+    <div class="hero__bg-wrap" aria-hidden="true">
       <img
-        class="hero__video-placeholder hero__bg-image"
+        id="hero-bg"
+        class="hero__bg-img"
         src="images/brett-jordan-U2q73PfHFpM-unsplash.jpg"
         alt=""
         loading="eager"
         fetchpriority="high"
       />
-      <div class="hero__video-overlay"></div>
+      <div class="hero__bg-overlay"></div>
     </div>
 
-    <div class="hero__glow" aria-hidden="true"></div>
-    <div class="hero__particles" aria-hidden="true"></div>
+    <div class="hero__atmosphere" aria-hidden="true"></div>
 
-    <!-- Vignette corners -->
-    <div class="hero__vignette" aria-hidden="true"></div>
-
-    <div class="hero__content">
-      <div class="hero__eyebrow">PERFORMANCE TRACKER</div>
+    <div class="hero__content" id="hero-content">
+      <div class="hero__eyebrow" id="hero-eyebrow">PERFORMANCE TRACKER</div>
       <h1 class="hero__title">
-        <span class="hero__line hero__line--1">BEAT</span>
-        <span class="hero__line hero__line--2">YESTERDAY.</span>
+        <span class="hero__line" id="hero-line-1" data-split-chars>BEAT</span>
+        <span class="hero__line hero__line--accent" id="hero-line-2" data-split-chars>YESTERDAY.</span>
       </h1>
-      <p class="hero__tagline">Half an hour still counts.</p>
-      <a href="/app" class="hero__cta" id="hero-cta">
+      <p class="hero__tagline" id="hero-tagline">Half an hour still counts.</p>
+      <a href="/app" class="hero__cta magnetic-btn" id="hero-cta">
         START MOVING
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
     </div>
 
-    <div class="hero__scroll-hint">
+    <div class="hero__scroll-hint" id="hero-scroll">
       <span class="hero__scroll-line"></span>
       <span class="hero__scroll-text">SCROLL</span>
     </div>
@@ -83,7 +77,7 @@
   <!-- ═══ STATS TICKER ═══ -->
   <div class="stats-ticker" aria-hidden="true">
     <div class="stats-ticker__track">
-      <div class="stats-ticker__inner">
+      <div class="stats-ticker__inner" id="ticker">
         <span class="stats-ticker__item">FREE FOREVER</span>
         <span class="stats-ticker__sep">✦</span>
         <span class="stats-ticker__item">OFFLINE FIRST</span>
@@ -96,61 +90,75 @@
         <span class="stats-ticker__sep">✦</span>
         <span class="stats-ticker__item">BEAT YOUR PR</span>
         <span class="stats-ticker__sep">✦</span>
+        <span class="stats-ticker__item">BODYWEIGHT ONLY</span>
+        <span class="stats-ticker__sep">✦</span>
       </div>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════
-       SECTION 2 — THE PROBLEM
-       ═══════════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════════
+       THE PROBLEM — Split reveal
+  ════════════════════════════════════════════════ -->
   <section class="section section--problem" id="problem">
     <div class="section__inner">
-      <div class="problem__text">
+      <div class="problem__text" id="problem-text">
         <h2 class="mega-text">LIFE GOT<br>CHAOTIC.</h2>
         <h2 class="mega-text mega-text--muted">YOU STOPPED<br>MOVING.</h2>
-        <p class="section__body" style="margin-top: 40px;">
-          Between deadlines, caffeine, and three browser tabs with "how to be productive",
-          movement became the first thing to go.
+        <p class="section__body" style="margin-top:44px">
+          Between deadlines, caffeine, and three open browser tabs titled
+          "how to be productive" — movement became the first thing to go.
         </p>
       </div>
-      <div class="problem__visual">
-        <img
-          class="problem__image"
-          src="images/tyler-raye-Xb1d-N04Quc-unsplash.jpg"
-          alt="Intense grip on a barbell — raw athletic effort"
-          loading="lazy"
-        />
-        <div class="problem__image-overlay"></div>
-        <div class="problem__image-label">
-          <span>THE GRIP</span>
+      <div class="problem__visual" id="problem-visual">
+        <div class="problem__img-clip">
+          <img
+            class="problem__image"
+            src="images/tyler-raye-Xb1d-N04Quc-unsplash.jpg"
+            alt="Intense grip on a barbell — raw athletic effort"
+            loading="lazy"
+          />
         </div>
+        <div class="problem__image-overlay"></div>
+        <div class="problem__image-label">THE GRIP</div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════
-       SECTION 3 — THE PHILOSOPHY
-       ═══════════════════════════════════════════════════════ -->
-  <section class="section section--philosophy" id="philosophy">
-    <div class="section__inner section__inner--center">
-      <p class="section__label">● THE PHILOSOPHY</p>
-      <div class="philosophy__glow" aria-hidden="true"></div>
-      <h2 class="mega-text mega-text--center">
-        YOU DON'T NEED<br>PERFECT DISCIPLINE.
-      </h2>
-      <h2 class="mega-text mega-text--center mega-text--accent">
-        YOU NEED<br>MOMENTUM.
-      </h2>
-      <p class="section__body section__body--philosophy">
-        One set of pushups at midnight is still a set of pushups.<br>
-        Progress doesn't require perfection. It requires showing up.
-      </p>
+  <!-- ═══════════════════════════════════════════
+       PHILOSOPHY — Horizontal scroll journey
+  ════════════════════════════════════════════════ -->
+  <section class="section--philosophy" id="philosophy">
+    <div class="philosophy__inner" id="philosophy-inner">
+
+      <div class="philosophy__panel">
+        <p class="section__label">● THE PHILOSOPHY</p>
+        <h2 class="mega-text mega-text--philosophy" id="philo-h1">
+          YOU DON'T<br>NEED PERFECT<br>DISCIPLINE.
+        </h2>
+      </div>
+
+      <div class="philosophy__panel">
+        <div class="philosophy__glow" aria-hidden="true"></div>
+        <h2 class="mega-text mega-text--philosophy mega-text--accent" id="philo-h2">
+          YOU NEED<br>MOMENTUM.
+        </h2>
+      </div>
+
+      <div class="philosophy__panel philosophy__panel--quote">
+        <div class="philosophy__quote-bar"></div>
+        <p class="philosophy__quote-text">
+          One set of pushups<br>at midnight<br>is still a set of pushups.<br><br>
+          Progress doesn't require perfection.<br>
+          It requires showing up.
+        </p>
+      </div>
+
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════
-       SECTION 4 — BUILT FOR
-       ═══════════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════════
+       BUILT FOR — Identity cascade
+  ════════════════════════════════════════════════ -->
   <section class="section section--identity" id="identity">
     <div class="section__inner section__inner--center">
       <p class="section__label">● BUILT FOR</p>
@@ -159,7 +167,7 @@
         <h2 class="identity__item">FOUNDERS.</h2>
         <h2 class="identity__item">CREATORS.</h2>
         <h2 class="identity__item identity__item--small">
-          PEOPLE HOLDING LIFE TOGETHER<br>WITH CAFFEINE AND DEADLINES.
+          PEOPLE HOLDING LIFE<br>TOGETHER WITH CAFFEINE.
         </h2>
       </div>
       <p class="section__body">
@@ -170,17 +178,18 @@
     <div class="identity__ambient" aria-hidden="true"></div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════
-       SECTION 5 — THE APP
-       ═══════════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════════
+       THE APP — Product
+  ════════════════════════════════════════════════ -->
   <section class="section section--product" id="product">
     <div class="section__inner">
-      <div class="product__info">
+      <div class="product__info" id="product-info">
         <p class="section__label">● THE APP</p>
         <h2 class="mega-text">LOG.<br>BEAT.<br>REPEAT.</h2>
         <p class="section__body">
           Open the app. Log your workout. See your PR. Close the app.<br><br>
-          No dashboards. No meal plans. No social feeds. No subscription before you can do a pushup.<br><br>
+          No dashboards. No meal plans. No social feeds.<br>
+          No subscription before you can do a pushup.<br><br>
           Just you vs. yesterday.
         </p>
         <div class="product__features">
@@ -198,86 +207,75 @@
           </div>
         </div>
       </div>
-      <div class="product__visual">
-        <div class="product__mockup-placeholder">
+      <div class="product__visual" id="product-visual">
+        <div class="product__mockup" id="product-mockup">
           <div class="mockup__screen">
             <span class="mockup__badge">BEAT YESTERDAY</span>
             <span class="mockup__exercise">DIAMOND PUSHUPS</span>
             <span class="mockup__number">42</span>
             <span class="mockup__delta">+6 FROM PREVIOUS BEST</span>
           </div>
+          <div class="mockup__shine" aria-hidden="true"></div>
         </div>
         <div class="product__glow" aria-hidden="true"></div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════
-       SECTION 6 — MOVEMENT CULTURE
-       ═══════════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════════
+       THE MOVEMENT — Culture grid
+  ════════════════════════════════════════════════ -->
   <section class="section section--culture" id="culture">
     <div class="section__inner section__inner--center">
       <p class="section__label">● THE MOVEMENT</p>
-      <h2 class="mega-text mega-text--center">KEEP<br>MOVING.</h2>
+      <h2 class="mega-text mega-text--center" id="culture-head">KEEP<br>MOVING.</h2>
     </div>
-    <div class="culture__grid">
-      <div class="culture__item culture__item--tall">
-        <img
-          class="culture__img"
-          src="images/marvin-cors-byfg3pTFIAQ-unsplash.jpg"
-          alt="Athlete lifting dumbbell overhead in a CrossFit gym"
-          loading="lazy"
-        />
+    <div class="culture__grid" id="culture-grid">
+
+      <div class="culture__item culture__item--tall" data-clip="bottom">
+        <img class="culture__img" src="images/marvin-cors-byfg3pTFIAQ-unsplash.jpg"
+          alt="Athlete lifting dumbbell overhead" loading="lazy" />
         <div class="culture__overlay"></div>
       </div>
-      <div class="culture__item">
-        <img
-          class="culture__img"
-          src="images/spencer-davis-0ShTs8iPY28-unsplash.jpg"
-          alt="Athlete with battle ropes in a dark gym"
-          loading="lazy"
-        />
+
+      <div class="culture__item" data-clip="left">
+        <img class="culture__img" src="images/spencer-davis-0ShTs8iPY28-unsplash.jpg"
+          alt="Athlete with battle ropes" loading="lazy" />
         <div class="culture__overlay"></div>
       </div>
-      <div class="culture__item">
-        <img
-          class="culture__img"
-          src="images/Finding%20Aesthetics.webp"
-          alt="Black and white closeup of an athlete's arm"
-          loading="lazy"
-        />
+
+      <div class="culture__item" data-clip="right">
+        <img class="culture__img" src="images/finding-aesthetics.webp"
+          alt="Athletic physique closeup" loading="lazy" />
         <div class="culture__overlay"></div>
       </div>
-      <div class="culture__item culture__item--wide">
-        <img
-          class="culture__img"
-          src="images/Men%27s%20Workout%20Must-Haves.jpg"
-          alt="Two athletes posing confidently in a gym"
-          loading="lazy"
-        />
+
+      <div class="culture__item culture__item--wide" data-clip="top">
+        <img class="culture__img" src="images/mens-workout.jpg"
+          alt="Two athletes in a gym" loading="lazy" />
         <div class="culture__overlay"></div>
       </div>
+
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════
-       SECTION 7 — FINAL CTA
-       ═══════════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════════
+       FINAL CTA
+  ════════════════════════════════════════════════ -->
   <section class="section section--cta" id="install">
     <div class="section__inner section__inner--center">
       <div class="cta__glow" aria-hidden="true"></div>
       <p class="section__label">● START NOW</p>
-      <h2 class="cta__title">BEAT<br>YESTERDAY.</h2>
-      <p class="cta__sub">Free. Offline. No login. No excuses.</p>
-      <a href="/app" class="cta__button" id="install-btn">
+      <h2 class="cta__title" id="cta-title">BEAT<br>YESTERDAY.</h2>
+      <p class="cta__sub" id="cta-sub">Free. Offline. No login. No excuses.</p>
+      <a href="/app" class="cta__button magnetic-btn" id="install-btn">
         INSTALL APP
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       </a>
-      <p class="cta__note">Works on any phone. No app store needed.</p>
+      <p class="cta__note" id="cta-note">Works on any phone. No app store needed.</p>
     </div>
   </section>
 
-  <!-- ═══ FOOTER ═══ -->
   <footer class="footer">
     <div class="footer__inner">
       <span class="footer__brand">BEATYESTERDAY</span>
