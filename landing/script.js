@@ -266,31 +266,105 @@
   }
 
   /* ════════════════════════════════════════
-     CUSTOM CURSOR
+     PERFORMANCE RETICLE CURSOR
   ════════════════════════════════════════ */
   function initCursor() {
-    const ring = document.getElementById('cursor');
-    const dot  = document.getElementById('cursor-dot');
-    if (!ring || !dot || !window.matchMedia('(pointer: fine)').matches) return;
+    const reticle = document.getElementById('cursor-reticle');
+    const trailCanvas = document.getElementById('cursor-trail');
+    if (!reticle || !trailCanvas) return;
+    if (!window.matchMedia('(pointer: fine)').matches) return;
 
     document.body.classList.add('has-custom-cursor');
-    let mx = 0, my = 0, rx = 0, ry = 0;
 
-    window.addEventListener('mousemove', (e) => {
-      mx = e.clientX; my = e.clientY;
-      gsap.to(dot, { x: mx, y: my, duration: 0.07, ease: 'power2.out' });
+    /* Trail canvas */
+    const ctx = trailCanvas.getContext('2d');
+    function resizeTrail() {
+      trailCanvas.width  = window.innerWidth;
+      trailCanvas.height = window.innerHeight;
+    }
+    resizeTrail();
+    window.addEventListener('resize', resizeTrail);
+
+    let mx = window.innerWidth  / 2;
+    let my = window.innerHeight / 2;
+    let rx = mx, ry = my;         /* reticle pos (lerped) */
+    let prevRx = rx, prevRy = ry; /* previous frame reticle pos */
+    let trail = [];               /* velocity trail points */
+    let ripples = [];             /* click ripple rings */
+
+    window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
+
+    /* Click ripple burst */
+    window.addEventListener('mousedown', () => {
+      document.body.classList.add('cursor-click');
+      ripples.push({ x: rx, y: ry, r: 2, alpha: 0.7 });
+    });
+    window.addEventListener('mouseup', () => document.body.classList.remove('cursor-click'));
+
+    /* Hover — targets all interactive elements */
+    const interactiveSelector = 'a, button, .culture__item, .identity__item, .magnetic-btn, .metrics__item, .nav__cta, .hero__cta, .footer__cta-btn';
+    document.querySelectorAll(interactiveSelector).forEach((el) => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
     });
 
-    gsap.ticker.add(() => {
-      rx += (mx - rx) * 0.12;
-      ry += (my - ry) * 0.12;
-      gsap.set(ring, { x: rx, y: ry });
-    });
+    function renderCursor() {
+      /* ── Lerp reticle toward raw mouse ── */
+      rx += (mx - rx) * 0.14;
+      ry += (my - ry) * 0.14;
 
-    document.querySelectorAll('a, button, .culture__item, .identity__item').forEach((el) => {
-      el.addEventListener('mouseenter', () => gsap.to(ring, { scale: 2.4, opacity: 0.5, duration: 0.3 }));
-      el.addEventListener('mouseleave', () => gsap.to(ring, { scale: 1, opacity: 1, duration: 0.3 }));
-    });
+      /* ── Velocity ── */
+      const vx  = rx - prevRx;
+      const vy  = ry - prevRy;
+      const vel = Math.sqrt(vx * vx + vy * vy);
+      prevRx = rx; prevRy = ry;
+
+      /* ── Move DOM reticle ── */
+      reticle.style.left = rx + 'px';
+      reticle.style.top  = ry + 'px';
+
+      /* ── Trail: spawn points proportional to velocity ── */
+      if (vel > 0.8) {
+        trail.push({
+          x:    rx,
+          y:    ry,
+          life: 1.0,
+          size: Math.min(vel * 0.7, 4.5),
+        });
+      }
+      /* Cap trail */
+      if (trail.length > 40) trail.shift();
+
+      /* ── Draw ── */
+      ctx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+
+      /* Velocity trail */
+      trail = trail.filter((p) => p.life > 0);
+      trail.forEach((p) => {
+        p.life -= 0.055;
+        const ao = Math.max(0, p.life);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size * ao, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(230,57,70,${ao * 0.38})`;
+        ctx.fill();
+      });
+
+      /* Click ripple rings */
+      ripples = ripples.filter((r) => r.alpha > 0.01);
+      ripples.forEach((r) => {
+        r.r     += 2.8;
+        r.alpha *= 0.88;
+        ctx.beginPath();
+        ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(230,57,70,${r.alpha})`;
+        ctx.lineWidth   = 1;
+        ctx.stroke();
+      });
+
+      requestAnimationFrame(renderCursor);
+    }
+
+    requestAnimationFrame(renderCursor);
   }
 
   /* ════════════════════════════════════════

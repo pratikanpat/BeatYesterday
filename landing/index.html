@@ -27,8 +27,15 @@
   <div id="light-orb"   aria-hidden="true"></div>
   <div id="light-orb-2" aria-hidden="true"></div>
   <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
-  <div class="cursor"     id="cursor"     aria-hidden="true"></div>
-  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <canvas id="cursor-trail" aria-hidden="true"></canvas>
+  <div id="cursor-reticle" aria-hidden="true">
+    <div class="reticle__corner reticle__corner--tl"></div>
+    <div class="reticle__corner reticle__corner--tr"></div>
+    <div class="reticle__corner reticle__corner--bl"></div>
+    <div class="reticle__corner reticle__corner--br"></div>
+    <div class="reticle__dot"></div>
+    <div class="reticle__ring"></div>
+  </div>
   <div class="grain"      aria-hidden="true"></div>
 
   <!-- ═══ NAV ═══ -->

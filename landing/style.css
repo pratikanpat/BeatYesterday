@@ -126,28 +126,87 @@ img { max-width: 100%; display: block; }
 }
 
 /* ══════════════════════════════════════════
-   CUSTOM CURSOR
+   PERFORMANCE TRACKING RETICLE CURSOR
 ══════════════════════════════════════════ */
-.cursor {
-  position: fixed; top: -20px; left: -20px;
-  width: 40px; height: 40px;
-  border: 1px solid rgba(240,240,240,0.45);
+
+/* Velocity trail canvas */
+#cursor-trail {
+  position: fixed; inset: 0;
+  z-index: 9996; pointer-events: none;
+}
+
+/* Main reticle wrapper */
+#cursor-reticle {
+  position: fixed;
+  width: 44px; height: 44px;
+  z-index: 9999; pointer-events: none;
+  transform: translate(-50%, -50%);
+  will-change: left, top;
+  transition: transform 0.3s var(--ease-expo);
+}
+
+body.cursor-hover #cursor-reticle {
+  transform: translate(-50%, -50%) scale(0.72);
+}
+
+body.cursor-click #cursor-reticle {
+  transform: translate(-50%, -50%) scale(0.55);
+}
+
+/* Corner bracket lines */
+.reticle__corner {
+  position: absolute;
+  width: 11px; height: 11px;
+  border-color: rgba(240, 240, 240, 0.82);
+  border-style: solid;
+  transition: transform 0.32s var(--ease-expo), border-color 0.22s ease, opacity 0.22s ease;
+}
+
+.reticle__corner--tl { top: 0;    left: 0;  border-width: 1.5px 0 0 1.5px; }
+.reticle__corner--tr { top: 0;    right: 0; border-width: 1.5px 1.5px 0 0; }
+.reticle__corner--bl { bottom: 0; left: 0;  border-width: 0 0 1.5px 1.5px; }
+.reticle__corner--br { bottom: 0; right: 0; border-width: 0 1.5px 1.5px 0; }
+
+/* Hover: targeting lock — brackets move inward + turn red */
+body.cursor-hover .reticle__corner--tl { transform: translate(6px,  6px);  border-color: var(--accent); }
+body.cursor-hover .reticle__corner--tr { transform: translate(-6px, 6px);  border-color: var(--accent); }
+body.cursor-hover .reticle__corner--bl { transform: translate(6px,  -6px); border-color: var(--accent); }
+body.cursor-hover .reticle__corner--br { transform: translate(-6px, -6px); border-color: var(--accent); }
+
+/* Central red dot */
+.reticle__dot {
+  position: absolute;
+  width: 3px; height: 3px;
+  background: var(--accent);
   border-radius: 50%;
-  pointer-events: none; z-index: 9998;
-  mix-blend-mode: difference;
-  will-change: transform;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s ease;
 }
 
-.cursor-dot {
-  position: fixed; top: -3px; left: -3px;
-  width: 6px; height: 6px;
-  background: var(--accent); border-radius: 50%;
-  pointer-events: none; z-index: 9999;
-  will-change: transform;
+body.cursor-hover .reticle__dot {
+  transform: translate(-50%, -50%) scale(1.8);
 }
 
-body:not(.has-custom-cursor) .cursor,
-body:not(.has-custom-cursor) .cursor-dot { display: none; }
+/* BPM ping ring — always animating */
+.reticle__ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation: reticlePing 2.8s ease-out infinite;
+}
+
+@keyframes reticlePing {
+  0%   { width: 4px;  height: 4px;  border-color: rgba(230,57,70,0.95); }
+  100% { width: 54px; height: 54px; border-color: rgba(230,57,70,0);    }
+}
+
+body:not(.has-custom-cursor) #cursor-reticle,
+body:not(.has-custom-cursor) #cursor-trail { display: none; }
+
+
 
 /* ══════════════════════════════════════════
    NAV
