@@ -59,13 +59,88 @@ img { max-width: 100%; display: block; }
   width: 700px;
   height: 700px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(230,57,70,0.055) 0%, transparent 68%);
+  background: radial-gradient(circle, rgba(230,57,70,0.065) 0%, transparent 68%);
   pointer-events: none;
   z-index: 1;
   transform: translate(-50%, -50%);
   filter: blur(50px);
   will-change: left, top;
   transition: opacity 0.6s ease;
+}
+
+/* Second ambient orb — drifts autonomously */
+#light-orb-2 {
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(230,57,70,0.04) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  filter: blur(60px);
+  will-change: left, top;
+}
+
+/* Energy background — animated gradient blobs */
+#energy-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+#energy-bg::before {
+  content: '';
+  position: absolute;
+  width: 160%; height: 160%;
+  top: -30%; left: -30%;
+  background:
+    radial-gradient(ellipse at 18% 28%, rgba(230,57,70,0.075) 0%, transparent 38%),
+    radial-gradient(ellipse at 82% 72%, rgba(230,57,70,0.055) 0%, transparent 35%),
+    radial-gradient(ellipse at 50% 50%, rgba(230,57,70,0.025) 0%, transparent 55%);
+  animation: energyBlob1 18s ease-in-out infinite alternate;
+}
+
+#energy-bg::after {
+  content: '';
+  position: absolute;
+  width: 160%; height: 160%;
+  top: -30%; left: -30%;
+  background:
+    radial-gradient(ellipse at 72% 22%, rgba(230,57,70,0.05) 0%, transparent 38%),
+    radial-gradient(ellipse at 28% 78%, rgba(230,57,70,0.07) 0%, transparent 33%);
+  animation: energyBlob2 24s ease-in-out infinite alternate;
+}
+
+@keyframes energyBlob1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(6%, -10%) scale(1.12); }
+  66%  { transform: translate(-9%, 6%) scale(0.94); }
+  100% { transform: translate(4%, 10%) scale(1.07); }
+}
+
+@keyframes energyBlob2 {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  40%  { transform: translate(-6%, 9%) rotate(12deg) scale(1.08); }
+  100% { transform: translate(9%, -6%) rotate(-8deg) scale(0.96); }
+}
+
+/* Subtle performance grid */
+.energy-bg__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(230,57,70,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(230,57,70,0.018) 1px, transparent 1px);
+  background-size: 72px 72px;
+  animation: gridPulse 5s ease-in-out infinite;
+}
+
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.55; }
+  50%       { opacity: 1; }
 }
 
 /* Layer 2 — Film grain (animated) */
@@ -185,7 +260,6 @@ body:not(.has-custom-cursor) .cursor-dot { display: none; }
 .nav__cta:hover {
   border-color: var(--accent);
   background: var(--accent-dim);
-  box-shadow: 0 0 24px rgba(230,57,70,0.16);
 }
 
 /* ══════════════════════════════════════════
@@ -230,6 +304,29 @@ body:not(.has-custom-cursor) .cursor-dot { display: none; }
 }
 
 /* Atmospheric haze layer */
+/* Hero scanline sweep */
+.hero__bg-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(230,57,70,0.04) 50%,
+    transparent 100%
+  );
+  background-size: 100% 200%;
+  animation: scanSweep 8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes scanSweep {
+  0%   { background-position: 0 -100%; }
+  60%  { background-position: 0 200%; }
+  100% { background-position: 0 200%; }
+}
+
 .hero__atmosphere {
   position: absolute;
   inset: 0;
@@ -344,7 +441,7 @@ body:not(.has-custom-cursor) .cursor-dot { display: none; }
   transition: opacity 0.3s ease;
 }
 
-.hero__cta:hover { background: var(--accent-hi); box-shadow: 0 12px 48px rgba(230,57,70,0.4); }
+.hero__cta:hover { background: var(--accent-hi); }
 .hero__cta:hover::after { opacity: 1; }
 
 .hero__scroll-hint {
@@ -889,7 +986,6 @@ body:not(.has-custom-cursor) .cursor-dot { display: none; }
 
 .cta__button:hover {
   background: #fff;
-  box-shadow: 0 16px 56px rgba(240,240,240,0.14);
 }
 
 .cta__note {
